@@ -8,16 +8,16 @@
    reader turns it or presses the quiet play in the gutter. */
 (function () {
   var entries = [
-    { chapter: 'Property', page: 'p. 41', title: 'Harbour House, Dartmouth', facts: [['Address', 'Harbour House, Newcomen Road, Dartmouth TQ6 9AF'], ['Title', 'DN482119 · freehold'], ['Bought', 'March 2011 · £1,150,000'], ['Kind', 'Detached · four bedrooms · the slipway']], story: 'Bought from the Pellows in 2011, the year the slipway last saw a boat. The kitchen was the old net loft; the terrace was Clare’s idea and the best thing about the house.', image: 'images/harbour-house.webp', alt: 'Watercolour · Harbour House from the water',
+    { chapter: 'Property', page: 'p. 41', title: 'Harbour House, Dartmouth', image: 'images/harbour-house.webp', alt: 'Watercolour · Harbour House from the water',
+      facts: [['Address', 'Harbour House, Newcomen Road, Dartmouth TQ6 9AF'], ['What kind of place', 'Detached · four bedrooms · the slipway'], ['Tenure', 'Freehold · DN482119'], ['How it is used', 'Second home'], ['Ownership', 'The Alderton Family Trust'], ['Tax position', 'Not the main home · CGT on a sale']],
       rows: [
-        { label: 'Value', draft: '£1,400,000', settled: '£1,485,000', figure: true },
+        { label: 'Worth', draft: '£1,400,000', settled: '£1,485,000', figure: true },
         { label: 'Source', draft: 'Your estimate, 9 Mar', settled: 'HM Land Registry · DN482119', badge: true },
-        { label: 'Held by', fixed: 'The Alderton Family Trust' },
-        { label: 'Note', draft: 'Marcus looking at the slipway', settled: 'Marcus Reid looking at the slipway' } ],
-      footer: ['', 'written by you', 'settled by Land Registry · your estimate kept underneath', '"Marcus" became a contact · note re-hung under Marcus Reid, surveyor'] },
-    // Ian's own boat (12 Sep 2026): Lady Anne, a Botnia Targa 46, kept
-    // at Ocean Village, owned by the family. The figures stay the
-    // Alderton book's fiction; the boat and the berth are real.
+        { label: 'What you paid', fixed: '£1,150,000 · March 2011' },
+        { label: 'Improvements', draft: 'the kitchen, roughly £180k', settled: '£212,400 · the kitchen and the terrace', figure: true },
+        { label: 'Held for', fixed: '15 years · the gain £122,600 after improvements' } ],
+      story: 'Bought from the Pellows in 2011, the year the slipway last saw a boat. The kitchen was the old net loft; the terrace was Clare’s idea and the best thing about the house.',
+      footer: ['', 'written by you', 'settled by Land Registry · your estimate kept underneath · improvements read from the invoices in the vault', 'the gain worked from what you paid and what you spent · Charlie will say what a sale would cost'] },
     { chapter: 'Boats', page: 'p. 67', title: 'Lady Anne · Botnia Targa 46', facts: [['Boat', 'Botnia Targa 46 · 2019'], ['Length', '14.6 m · twin diesels'], ['Berth', 'Ocean Village Marina, Southampton · C14'], ['Held by', 'The family']], story: 'Named for a grandmother who never went near the water. She lives at Ocean Village and goes to the Solent most weekends the forecast allows.', image: 'images/lady-anne.webp', alt: 'Watercolour · Lady Anne at Ocean Village',
       rows: [
         { label: 'Value', draft: '£620,000', settled: '£585,000', figure: true },
@@ -25,12 +25,15 @@
         { label: 'Berth', fixed: 'Ocean Village Marina · Southampton' },
         { label: 'Held by', fixed: 'The family' } ],
       footer: ['', 'written by you', 'broker valuation filed · purchase price kept underneath', 'survey booked · Charlie added it to the diary and the boat'] },
-    { chapter: 'Property', page: 'p. 38', title: 'Coldharbour Rectory', facts: [['Address', 'Coldharbour Rectory, Church Lane, Coldharbour'], ['Title', 'DN219004 · freehold · Grade II'], ['Bought', 'September 2004 · £1,420,000'], ['Kind', 'Detached · six bedrooms · two acres']], story: 'The family home. Jonathan’s office is the old study; the piano lives in the drawing room; the roof was done in 2019 and the bill is in the vault.', alt: 'Watercolour · the Rectory from the lane',
+    { chapter: 'Property', page: 'p. 38', title: 'Coldharbour Rectory', alt: 'Watercolour · the Rectory from the lane',
+      facts: [['Address', 'Coldharbour Rectory, Church Lane, Coldharbour'], ['What kind of place', 'Detached · six bedrooms · two acres · Grade II'], ['Tenure', 'Freehold · DN219004'], ['How it is used', 'Main home'], ['Ownership', 'Jonathan & Clare Alderton · jointly'], ['Tax position', 'Main home · private residence relief']],
       rows: [
-        { label: 'Value', draft: '£2,100,000', settled: '£2,240,000', figure: true },
+        { label: 'Worth', draft: '£2,100,000', settled: '£2,240,000', figure: true },
         { label: 'Source', draft: 'Your estimate', settled: 'Savills appraisal · Feb', badge: true },
+        { label: 'What you paid', fixed: '£1,420,000 · September 2004' },
         { label: 'Listing', draft: 'Grade II, I think', settled: 'Grade II · Historic England 1108422', badge: true },
-        { label: 'Held by', fixed: 'Jonathan & Clare Alderton' } ],
+        { label: 'Held for', fixed: '22 years · the roof in 2019, £64,000' } ],
+      story: 'The family home. Jonathan’s office is the old study; the piano lives in the drawing room; the roof was done in 2019 and the bill is in the vault.',
       footer: ['', 'written by you', 'appraisal filed', 'listing confirmed against the National Heritage List · consent notes attached'] },
     { chapter: 'Chattels', page: 'p. 92', title: 'Steinway Model B, 1928', facts: [['Maker', 'Steinway & Sons, Hamburg · 1928'], ['Serial', '259114 · Model B'], ['Kept at', 'Coldharbour Rectory · drawing room'], ['Insured', 'Hiscox · on the household schedule']], story: 'Isla’s piano, strictly speaking. Rebuilt in 2016 by Elgar & Sons, who tune it every December before the house fills up.', alt: 'Ink & wash · the Steinway in the drawing room',
       rows: [
@@ -39,12 +42,15 @@
         { label: 'Kept at', fixed: 'Coldharbour Rectory · drawing room' },
         { label: 'Note', draft: 'Tune before Christmas', settled: 'Tuning · Elgar & Sons · 3 Dec' } ],
       footer: ['', 'written by you', 'insured value read from the renewal schedule', 'tuner added as a contact · reminder set'] },
-    { chapter: 'Property', page: 'p. 44', title: 'The Chapel, St Anne’s', facts: [['Address', 'The Chapel, St Anne’s Lane, Coldharbour'], ['Title', 'DN301877 · freehold'], ['Conveyed', '1994 · into the Trust'], ['Kind', 'Former chapel · one room · the covenant']], story: 'A chapel until 1971, a store until Jonathan’s father took it for the Trust in 1994. Used by the family a few weekends a year; the covenant restricts what it may become.', alt: 'Watercolour · the Chapel in winter light',
+    { chapter: 'Property', page: 'p. 44', title: 'The Chapel, St Anne’s', alt: 'Watercolour · the Chapel in winter light',
+      facts: [['Address', 'The Chapel, St Anne’s Lane, Coldharbour'], ['What kind of place', 'Former chapel · one room · the covenant'], ['Tenure', 'Freehold · DN301877'], ['How it is used', 'Family, occasionally'], ['Ownership', 'The Alderton Family Trust · since 1994'], ['Tax position', 'In the Trust · outside the estate']],
       rows: [
-        { label: 'Value', draft: 'Nominal', settled: '£310,000', figure: true },
+        { label: 'Worth', draft: 'Nominal', settled: '£310,000', figure: true },
         { label: 'Source', draft: 'Not sure it has one', settled: 'Deeds · conveyed 1994 · rebuild cost basis', badge: true },
-        { label: 'Held by', fixed: 'The Alderton Family Trust' },
-        { label: 'Use', draft: 'Family, occasionally', settled: 'Family · covenant restricts change of use' } ],
+        { label: 'What you paid', fixed: 'Conveyed into the Trust · 1994' },
+        { label: 'Use', draft: 'Family, occasionally', settled: 'Family · covenant restricts change of use' },
+        { label: 'Held for', fixed: '32 years · nothing spent since the roof in 2008' } ],
+      story: 'A chapel until 1971, a store until Jonathan’s father took it for the Trust in 1994. Used by the family a few weekends a year; the covenant restricts what it may become.',
       footer: ['', 'written by you', 'deeds found in the Trust chapter · value set from rebuild cost', 'covenant noted from the deeds · flagged to your solicitor'] },
     { chapter: 'Structures', page: 'p. 12', title: 'The Alderton Family Trust', facts: [['Settled', '14 May 1998 · discretionary'], ['Trustees', 'Jonathan Alderton · Ruth Ellery'], ['Holds', 'Harbour House · The Chapel · two accounts'], ['Beneficiaries', 'Tom · Isla · their issue']], story: 'Set up by Jonathan’s father the year before he died. Ruth has been a trustee since 2015 and has the deed; the Trust’s own chapter carries the accounts.', alt: 'Ink sketch · the family tree',
       rows: [
