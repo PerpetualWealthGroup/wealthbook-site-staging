@@ -330,6 +330,11 @@ body { background: var(--paper); color: var(--ink); }
 .words-page .row-value { min-height: 46px; }
 .words-page .entry-foot { margin-top: auto; }
 .folio-line { display: flex; justify-content: space-between; }
+/* The running head on a left page: Contents (a link, at the outer edge)
+   and the family's name toward the spine, in the folio line's clothes. */
+.running-head { display: flex; justify-content: space-between; padding-top: 10px; margin-bottom: 12px; } /* on the right page's folio line */
+.running-head a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--hairline-strong); padding-bottom: 1px; }
+.running-head a:hover { color: var(--ink); border-bottom-color: var(--ink); }
 /* A chart or a ledger fills a left page the way a picture does. */
 .plate-page .plate.chart, .plate-page .plate.ledger { background: var(--panel); border: 1px solid var(--hairline); }
 .plate svg { display: block; width: 100%; height: 100%; }

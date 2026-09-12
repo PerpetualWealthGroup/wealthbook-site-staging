@@ -161,7 +161,12 @@
     var left = document.createElement('div'); left.className = 'page';
     var plate = e.kind === 'chart' ? '<div class="plate chart">' + growthSvg() + '</div>' : e.kind === 'ledger' ? '<div class="plate ledger">' + ledgerHtml() + '</div>' : e.kind === 'diary' ? '<div class="plate diary">' + diaryHtml() + '</div>' : e.kind === 'sheet' ? '<div class="plate sheet">' + sheetHtml() + '</div>' : e.kind === 'person' ? '<div class="plate person">' + personHtml() + '</div>' : e.image ? '<div class="plate picture"><img src="' + e.image + '" alt="' + e.alt + '"></div>' : '<div class="plate picture"><div class="plate-empty">' + e.alt + '</div></div>';
     var factsHtml = e.facts ? '<dl class="left-facts">' + e.facts.map(function (f) { return '<dt>' + f[0] + '</dt><dd>' + f[1] + '</dd>'; }).join('') + '</dl>' : '';
-    left.innerHTML = '<div class="plate-page">' + plate + '<div class="caption">' + e.alt + '</div>' + factsHtml + '</div>';
+    // THE RUNNING HEAD (Ian, 12 Sep 2026: "the navigation needs to be a
+    // bit better"): as a real book's verso carries the title, the left
+    // page carries Contents as a link back to the contents page and the
+    // family's name toward the spine; the right page keeps its chapter
+    // and folio. One press from any spread to the way in.
+    left.innerHTML = '<div class="plate-page"><div class="running-head kicker"><a href="#" data-contents>Contents</a><span>The Alderton Family</span></div>' + plate + '<div class="caption">' + e.alt + '</div>' + factsHtml + '</div>';
     var right = document.createElement('div'); right.className = 'page';
     right.innerHTML = '<div class="words-page"><div class="folio-line kicker"><span class="chapter">' + e.chapter + '</span><span class="folio">' + e.page + '</span></div><div class="entry-title"><span class="words">' + e.title + '</span><span class="caret" hidden></span></div><div class="rows"></div>' + (e.story ? '<p class="story">' + e.story + '</p>' : '') + '<div class="entry-foot"></div></div>';
     right.setAttribute('data-entry', String(i));
@@ -214,6 +219,11 @@
   // A chapter pressed on the contents turns the book to its first spread
   // (the cover is page 0, the inside cover 1, the contents 2; entry i's
   // pages are 3 + 2i and 4 + 2i).
+  // The running head's Contents turns the book back to the contents spread.
+  book.querySelectorAll('a[data-contents]').forEach(function (a) {
+    ['mousedown', 'touchstart', 'pointerdown'].forEach(function (t) { a.addEventListener(t, function (e) { e.stopPropagation(); }); });
+    a.addEventListener('click', function (e) { e.preventDefault(); stop(); flip.flip(2, 'top'); });
+  });
   contents.querySelectorAll('a[data-entry]').forEach(function (a) {
     // The engine turns a page on any press; a link's press stops here so
     // the click is the link's alone.
