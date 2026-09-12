@@ -7,64 +7,42 @@
   <meta name="description" content="A record of your whole financial life. Yours, and your family's, for life.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Instrument+Sans:wght@400;500;600&display=swap">
-  <link rel="stylesheet" href="css/site.css?v=202609121355">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Instrument+Sans:wght@400;500;600&family=Caveat:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/site.css?v=202609121413">
 </head>
 <body>
-  <!-- The front page. The look landed from Claude Design (12 Sep 2026,
-       "Paper" direction) and is redressed here in the house's tokens.
-       Nav carries the one real door only: pages for The book, Charlie
-       and For advisers are scoped but not built, and a link to nowhere
-       breaks the illusion. They join the nav the day they exist. -->
-  <div class="page">
-    <nav class="nav">
-      <a class="wordmark" href="/">Wealthbook</a>
-      <a class="btn primary small" href="https://secure.wealthbook.co.uk">Open your book</a>
-    </nav>
-
-    <section class="hero">
-      <div class="hero-words">
-        <div class="kicker">A record of your whole financial life</div>
-        <h1>Yours, and your family's, <em>for life.</em></h1>
-        <p class="lede">Every property, business, trust and account, written down properly in one book. Share it, or just the right pages, with your family. Invite your adviser, fund manager, accountant, anyone who helps. They come and go. The book stays yours.</p>
-        <div class="hero-doors">
-          <a class="btn primary" href="https://secure.wealthbook.co.uk">Start your book</a>
-          <a class="link-btn" href="#charlie">See how it thinks</a>
-        </div>
+  <!-- The front page: the words, then the family book — a cover and
+       spreads the reader turns by hand. js/book.js builds the pages and
+       drives the turning. Nav carries the one real door only until the
+       other pages exist. -->
+<div class="page">
+  <nav class="nav">
+    <a class="wordmark" href="/">Wealthbook</a>
+    <a class="btn primary small" href="https://secure.wealthbook.co.uk">Open your book</a>
+  </nav>
+  <section class="hero">
+    <div class="hero-words">
+      <div class="kicker">A record of your whole financial life</div>
+      <h1>Yours, and your family's, <em>for life.</em></h1>
+      <p class="lede">Every property, business, trust and account, written down properly in one book. Share it, or just the right pages, with your family. Invite your adviser, fund manager, accountant, anyone who helps. They come and go. The book stays yours.</p>
+      <div class="hero-doors">
+        <a class="btn primary" href="https://secure.wealthbook.co.uk">Start your book</a>
+        <a class="link-btn" href="#charlie">See how it thinks</a>
       </div>
-
-      <!-- One page of the book, writing itself: js/entry.js paints it. -->
-      <div class="entry" aria-label="An entry in the book, being settled">
-        <div class="entry-body">
-          <div class="running-head kicker"><span class="chapter">Chapter 3 · Property</span><span class="folio">p. 41</span></div>
-          <div class="plate"></div>
-          <div class="entry-title"><span class="words">Harbour House, Dartmouth</span><span class="caret"></span></div>
-          <div class="rows"></div>
-          <div class="entry-foot"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="strip" id="charlie">
-      <div>
-        <div class="strip-title">Keep the book</div>
-        <div class="strip-body">Property, businesses, trusts, the boat, what you spend. Every value confesses its source.</div>
-      </div>
-      <div>
-        <div class="strip-title">Charlie reads it</div>
-        <div class="strip-body">One intelligence that has read the whole story, and notices when your spending and your plan disagree.</div>
-      </div>
-      <div>
-        <div class="strip-title">Invite who you like</div>
-        <div class="strip-body">Your adviser, fund manager, accountant, family. Advice stays with the regulated firm. The book stays with you.</div>
-      </div>
-    </section>
-
-    <footer>
-      <span>Wealthbook</span>
-      <span>&copy; 2026</span>
-    </footer>
-  </div>
-  <script src="js/entry.js?v=202609121355"></script>
+    </div>
+  </section>
+  <section class="shelf">
+    <div class="book" id="book"></div>
+    <div class="turns"><button type="button" class="prev" aria-label="Previous page">‹ back</button><span class="where">cover</span><button type="button" class="next" aria-label="Next page">forward ›</button></div>
+  </section>
+  <section class="strip" id="charlie">
+    <div><div class="strip-title">Keep the book</div><div class="strip-body">Property, businesses, trusts, the boat, what you spend. Every value confesses its source.</div></div>
+    <div><div class="strip-title">Charlie reads it</div><div class="strip-body">One intelligence that has read the whole story, and notices when your spending and your plan disagree.</div></div>
+    <div><div class="strip-title">Invite who you like</div><div class="strip-body">Your adviser, fund manager, accountant, family. Advice stays with the regulated firm. The book stays with you.</div></div>
+  </section>
+  <footer><span>Wealthbook</span><span>&copy; 2026</span></footer>
+</div>
+  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+  <script src="js/book.js?v=202609121413"></script>
 </body>
 </html>

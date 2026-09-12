@@ -283,3 +283,111 @@ footer {
   .caret { animation: none; }
   .entry-body, .row-value { transition: none; }
 }
+
+/* ── THE FAMILY BOOK (Ian, 12 Sep 2026: "like those PDF readers — the
+   first page on its own, then a left and a right, one goes one way and
+   one the other… a subtle play in the middle"). The book sits under the
+   headline because a spread needs the width. Every entry is a spread:
+   the watercolour on the left page, the words on the right; the cover
+   stands alone. A page-flip engine does the turning — the corner lifts
+   under the pointer, the page bends and goes over the gutter with its
+   shadow — and nothing turns unless the reader turns it or presses the
+   quiet play in the gutter. ── */
+.hero { display: block; padding: 72px var(--gutter) 40px; }
+.hero-words { max-width: 760px; }
+.shelf { position: relative; padding: 16px var(--gutter) 88px; display: flex; flex-direction: column; align-items: center; }
+.book { position: relative; width: min(920px, 100%); }
+.book .page { background: var(--panel); color: var(--ink); border: 1px solid var(--hairline-strong); overflow: hidden; }
+.book .page.--left { border-right: 0; border-radius: var(--corner) 0 0 var(--corner); box-shadow: inset -14px 0 24px -18px rgba(26, 24, 21, 0.28); }
+.book .page.--right { border-left: 0; border-radius: 0 var(--corner) var(--corner) 0; box-shadow: inset 14px 0 24px -18px rgba(26, 24, 21, 0.28); }
+.book .page.cover { background: var(--wash); border-radius: var(--corner); }
+/* The cover: the family's name, in the display face, on parchment. */
+.cover-inner { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px 36px; gap: 18px; }
+.cover-inner .kicker { letter-spacing: 3px; }
+.cover-name { font-family: var(--font-display); font-size: clamp(30px, 4.4vw, 44px); font-weight: 500; line-height: 1.05; }
+.cover-rule { width: 56px; height: 1px; background: var(--hairline-strong); }
+.cover-kept { font-size: 13.5px; color: var(--soft); }
+/* A left page: the plate fills it, paper showing at the margins. */
+/* A PICTURE IS SHOWN WHOLE (Ian, 12 Sep 2026, the boat cropped to a
+   portrait page: "you're going to need to make it smaller… the whole
+   picture on one page"). A watercolour is landscape; the page is not.
+   So the plate keeps the picture's own shape, sits in the upper part of
+   the page with paper around it, as a plate in a printed book does, and
+   nothing is cut off. A chart, a sheet, a diary or a person still fills
+   the page: those are drawn to fit. */
+.plate-page { position: absolute; inset: 0; padding: 28px; display: flex; flex-direction: column; justify-content: center; }
+.plate-page .plate { flex: 1; margin: 0; height: auto; position: relative; }
+.plate-page .plate.picture:has(.plate-empty) { background: var(--wash); }
+.plate-page .plate.picture { flex: none; aspect-ratio: 3 / 2; width: 100%; background: transparent; border-bottom: 0; box-shadow: 0 1px 0 var(--hairline-strong); }
+.plate-page .plate.picture img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.plate-page .caption { margin-top: 12px; font-family: var(--font-display); font-style: italic; font-size: 15px; color: var(--soft); text-align: center; }
+/* A right page: the entry as the card held it. */
+.words-page { position: absolute; inset: 0; padding: 30px 34px 32px; display: flex; flex-direction: column; }
+.words-page .entry-title { margin-top: 6px; }
+.words-page .rows { font-size: 16px; }
+.words-page .row-value { min-height: 46px; }
+.words-page .entry-foot { margin-top: auto; }
+.folio-line { display: flex; justify-content: space-between; }
+/* A chart or a ledger fills a left page the way a picture does. */
+.plate-page .plate.chart, .plate-page .plate.ledger { background: var(--panel); border: 1px solid var(--hairline); }
+.plate svg { display: block; width: 100%; height: 100%; }
+.chart-title { position: absolute; top: 12px; left: 14px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+.chart-end { position: absolute; top: 10px; right: 14px; font-family: var(--font-display); font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums lining-nums; }
+.plate.ledger { padding: 22px 24px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+.ledger-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; color: var(--soft); gap: 12px; }
+.ledger-row b { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums lining-nums; white-space: nowrap; }
+.ledger-row.total { border-top: 1px solid var(--hairline-strong); padding-top: 12px; margin-top: 6px; color: var(--ink); }
+.ledger-row.total b { font-size: 24px; }
+/* The shelf's controls: ‹ › either side, and the play in the gutter. */
+.turns { display: flex; justify-content: center; align-items: center; gap: 18px; margin-top: 18px; }
+.turns button { all: unset; cursor: pointer; font-family: var(--font-text); font-size: 13px; color: var(--muted); padding: 6px 10px; border-radius: var(--corner); }
+.turns button:hover { color: var(--ink); background: var(--wash); }
+.turns button:focus-visible { outline: 2px solid var(--faint); outline-offset: 2px; }
+.turns .where { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 9ch; text-align: center; }
+.play { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 20; opacity: 0; transition: opacity 250ms ease; }
+.book:hover .play, .play.on { opacity: 1; }
+.play button { all: unset; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; background: var(--panel); color: var(--soft); box-shadow: 0 0 0 1px var(--hairline-strong), 0 6px 18px rgba(26, 24, 21, 0.12); }
+.play button:hover { color: var(--ink); box-shadow: 0 0 0 1px var(--ink), 0 6px 18px rgba(26, 24, 21, 0.12); }
+.play button:focus-visible { outline: 2px solid var(--faint); outline-offset: 2px; }
+.play svg { width: 11px; height: 11px; }
+@media (hover: none) { .play { opacity: 1; } }
+@media (max-width: 700px) { .plate-page { padding: 16px; } .words-page { padding: 22px 20px 22px; } .words-page .rows { font-size: 15px; grid-template-columns: 90px 1fr; } }
+
+/* THE LEFT PAGE IS THE THING ITSELF (Ian, 12 Sep 2026: "why would you
+   have a sketch of a diary… you want a pencil and a written diary note
+   that you met someone"). A house gets its watercolour because the house
+   is the thing; a diary day gets the diary — a dated page, faint rules,
+   the note in pencil as it was scribbled — and the right page is what
+   the book made of it: the surveyor linked, the boat linked, the date
+   fixed, the invoice matched. Source on the left, record on the right. */
+.plate.diary { background: #fdfcf9; border: 1px solid var(--hairline); padding: 26px 28px 24px; display: flex; flex-direction: column; background-image: repeating-linear-gradient(to bottom, transparent 0 31px, #ece7dd 31px 32px); background-position: 0 92px; }
+.diary-day { font-family: var(--font-display); font-size: 24px; font-weight: 500; line-height: 1.1; }
+.diary-date { font-family: var(--font-text); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+.diary-note { margin-top: 34px; font-family: 'Caveat', 'Segoe Print', cursive; font-size: 25px; line-height: 32px; color: #4a4640; transform: rotate(-0.6deg); white-space: pre-line; }
+.diary-note .later { color: #8a8375; }
+.diary-note .tick { display: inline-block; margin-left: 6px; }
+
+/* SOMETIMES YOU TURN THE PAGE AND IT'S A SPREADSHEET (Ian, 12 Sep 2026:
+   "sometimes when you turn the book there'll be a spreadsheet, sometimes
+   another page with something on it"). The house workbook on a page:
+   small capitals for the heads, hairline rules, figures right and
+   tabular in the display face, the total ruled off. And a person's page:
+   a face, who they are, what their schooling has cost so far. */
+.plate.sheet { background: #fdfcf9; border: 1px solid var(--hairline); padding: 22px 22px 18px; display: flex; flex-direction: column; }
+.sheet-name { font-family: var(--font-display); font-size: 22px; font-weight: 500; line-height: 1.1; }
+.sheet-sub { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin: 4px 0 14px; }
+.sheet table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.sheet th { font-weight: 500; font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); text-align: right; padding: 0 0 8px 8px; border-bottom: 1px solid var(--ink); }
+.sheet th:first-child, .sheet td:first-child { text-align: left; padding-left: 0; color: var(--soft); }
+.sheet td { text-align: right; padding: 7px 0 7px 8px; border-bottom: 1px solid var(--hairline); font-variant-numeric: tabular-nums lining-nums; color: var(--ink); }
+.sheet tr.total td { border-bottom: 0; border-top: 1px solid var(--ink); font-family: var(--font-display); font-size: 16px; font-weight: 600; padding-top: 10px; }
+.sheet tr.total td:first-child { font-family: var(--font-text); font-size: 12.5px; font-weight: 500; color: var(--ink); }
+.sheet .over { color: #8a3b2e; }
+.plate.person { background: #fdfcf9; border: 1px solid var(--hairline); padding: 30px 28px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.person-face { width: 96px; height: 96px; border-radius: 50%; background: var(--wash); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 34px; font-weight: 600; color: var(--soft); letter-spacing: 1px; }
+.person-name { margin-top: 18px; font-family: var(--font-display); font-size: 28px; font-weight: 500; line-height: 1.1; }
+.person-sub { margin-top: 6px; font-size: 13px; color: var(--soft); }
+.person-ledger { margin-top: 28px; width: 100%; display: flex; flex-direction: column; gap: 8px; }
+.person-ledger .ledger-row { font-size: 13px; }
+.person-ledger .ledger-row b { font-size: 17px; }
+.person-ledger .ledger-row.total b { font-size: 22px; }
