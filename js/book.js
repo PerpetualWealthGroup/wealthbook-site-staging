@@ -150,7 +150,7 @@
   // The Aldertons, a watercolour of a lunch by the harbour (the picture
   // Ian sent, 12 Sep 2026), with Bramble under the table.
   var familyImage = 'images/family.webp';
-  inside.innerHTML = '<div class="plate-page inside-cover"><div class="plate picture family"><img src="' + familyImage + '" alt="The Aldertons at lunch by the harbour, a watercolour"></div><div class="caption">The Aldertons, and Bramble · lunch on the harbour, summer 2026</div></div>';
+  inside.innerHTML = '<div class="plate-page inside-cover"><div class="plate picture family"><img src="' + familyImage + '" alt="The Aldertons at lunch by the harbour, a watercolour"></div><div class="caption">Lunch at the harbour · summer 2025</div></div>';
   var contents = document.createElement('div'); contents.className = 'page';
   var chapters = []; entries.forEach(function (e, i) { if (!chapters.some(function (c) { return c.name === e.chapter; })) chapters.push({ name: e.chapter, entry: i, page: e.page }); });
   contents.innerHTML = '<div class="contents-page"><div class="kicker">The Alderton Family</div><div class="contents-title">Contents</div><ul class="contents-list">' +
@@ -204,24 +204,26 @@
   var flip = new St.PageFlip(book, {
     width: 590, height: 720, size: 'stretch', minWidth: 300, maxWidth: 590, minHeight: 366, maxHeight: 720,
     showCover: true, drawShadow: true, maxShadowOpacity: 0.28, flippingTime: 1100, usePortrait: true, mobileScrollSupport: false, startPage: 0,
-    showPageCorners: true, swipeDistance: 30, disableFlipByClick: true
+    showPageCorners: true, swipeDistance: 30
   });
   flip.loadFromHTML(pages);
   // A chapter pressed on the contents turns the book to its first spread
   // (the cover is page 0, the inside cover 1, the contents 2; entry i's
   // pages are 3 + 2i and 4 + 2i).
   contents.querySelectorAll('a[data-entry]').forEach(function (a) {
+    // The engine turns a page on any press; a link's press stops here so
+    // the click is the link's alone.
+    ['mousedown', 'touchstart', 'pointerdown'].forEach(function (t) { a.addEventListener(t, function (e) { e.stopPropagation(); }); });
     a.addEventListener('click', function (e) { e.preventDefault(); stop(); flip.flip(3 + 2 * Number(a.getAttribute('data-entry')), 'top'); });
   });
   // THE COVER'S TURN OPENS THE BOOK: the words go, the seat widens to the
   // page and the engine lays the pages out as a spread. Turning back to
   // the cover, or Close the book, puts it all back.
   // THE ORDER MATTERS (12 Sep 2026, the "p. 52" opening): the engine turns
-  // pages on its own click and drag, so the house never turns a page the
-  // engine is already turning. Clicking a page is off (disableFlipByClick
-  // — a click on a contents link must not also turn the page); the corners
-  // and a drag are the engine's; the house turns the cover only when the
-  // reader presses the closed book or the menu's "The book".
+  // pages on its own click, corner and drag, so the house never turns a
+  // page the engine is already turning. A contents link stops its press
+  // before the engine sees it, so a link is only a link; the house turns
+  // the cover itself only from the menu's "The book".
   function isOpen() { return document.body.classList.contains('opened'); }
   function widen() {
     // The seat widens first, so the cover turns onto the left of a spread
@@ -240,8 +242,9 @@
     setTimeout(function () { flip.update(); flip.turnToPage(0); }, 60);
   }
   document.querySelector('.close-book').addEventListener('click', closeBook);
-  // Pressing the closed book: the seat widens on the press, so a drag that
-  // follows folds the cover in the wide seat; a plain click turns it.
+  // Pressing the closed book: the seat widens on the press, so the engine's
+  // own click or corner-drag turns the cover onto a spread, never a lone
+  // portrait page.
   var press = null;
   book.addEventListener('pointerdown', function (e) {
     press = { x: e.clientX, y: e.clientY, wasClosed: !isOpen() };
@@ -255,27 +258,13 @@
       widen();
     }
   });
-  book.addEventListener('click', function (e) {
-    if (!press) return; var moved = Math.abs(e.clientX - press.x) > 5 || Math.abs(e.clientY - press.y) > 5; var wasClosed = press.wasClosed; press = null;
-    if (wasClosed && !moved && flip.getCurrentPageIndex() === 0) { flip.flipNext('top'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-  });
-  // A DRAG ACROSS A PAGE TURNS IT (Ian: "if you dragged the mouse over a
-  // certain amount it just turns the page"). The engine only completes a
-  // drag that crosses the spine; the house lowers that to a fifth of the
-  // page's width. This reaches into page-flip 2.0.7's flip controller
-  // (stopMove decides where a released fold goes) — the version is pinned.
-  var fc = flip.flipController, grabX = null, engineFold = fc.fold.bind(fc);
-  // The fold puts the corner under the pointer wherever it was grabbed, so
-  // the distance is measured from the grab, not from the corner.
-  fc.fold = function (pos) { var fresh = fc.calc === null; engineFold(pos); if (fresh && fc.calc !== null) grabX = fc.render.convertToPage(pos).x; };
-  fc.stopMove = function () {
-    if (fc.calc === null) return;
-    var pos = fc.calc.getPosition(), rect = fc.getBoundsRect();
-    var y = fc.calc.getCorner() === 'bottom' ? rect.height : 0;
-    var travelled = (grabX === null ? rect.pageWidth : grabX) - pos.x; grabX = null;
-    if (pos.x <= 0 || travelled > rect.pageWidth / 5) fc.animateFlippingTo(pos, { x: -rect.pageWidth, y: y }, true);
-    else fc.animateFlippingTo(pos, { x: rect.pageWidth, y: y }, false);
-  };
+  book.addEventListener('click', function () { press = null; });
+  // THE ENGINE'S OWN WAYS (Ian, 12 Sep 2026, on the drag-a-fifth: "a bit
+  // weird… better if you just click the side of the page or roll up the
+  // corner like we used to"): a press on the right page turns forward, on
+  // the left turns back; the corner rolls under the pointer and a drag
+  // past the spine completes; a swipe does the same on a phone. Nothing
+  // of the house's is added to the turning.
   document.querySelector('a[href="#the-book"]').addEventListener('click', function (e) { if (!isOpen()) { e.preventDefault(); openBook(); } });
   var where = document.querySelector('.turns .where');
   function say() {

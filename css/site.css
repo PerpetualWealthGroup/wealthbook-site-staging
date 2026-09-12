@@ -547,7 +547,14 @@ body.opened .closed-invite { display: none; }
 .closed-invite { position: static; margin-top: 14px; text-align: center; font-family: var(--font-display); font-style: italic; font-size: 16px; color: var(--muted); }
 .book-seat:hover .closed-invite { color: var(--ink); }
 /* At rest the cover wears the closed book's weight: a spine's shadow and a lift. */
-body:not(.opened) .book .page.cover { box-shadow: 0 30px 60px -24px rgba(26, 24, 21, 0.35), inset 8px 0 14px -10px rgba(26, 24, 21, 0.25); }
+body:not(.opened) .book .page.cover { box-shadow: 0 30px 60px -24px rgba(26, 24, 21, 0.35), inset 8px 0 14px -10px rgba(26, 24, 21, 0.25); transition: box-shadow 450ms ease; }
+/* HOVER LIFTS THE CLOSED COVER (Ian, 12 Sep 2026: "it lifts up quite a
+   bit so you understand what it does — it invites you in"): the book
+   rises toward the reader and its shadow deepens; a hardback, so no curl. */
+body:not(.opened) .book { cursor: pointer; }
+body:not(.opened) .book .stf__wrapper { transition: transform 450ms ease; }
+body:not(.opened) .book:hover .stf__wrapper { transform: translateY(-10px); }
+body:not(.opened) .book:hover .page.cover { box-shadow: 0 44px 70px -22px rgba(26, 24, 21, 0.45), inset 8px 0 14px -10px rgba(26, 24, 21, 0.25); }
 /* The left page, with air (Ian: "raise the picture up a little… more
    space underneath… put the address in properly… make the text a bit
    better"). */
