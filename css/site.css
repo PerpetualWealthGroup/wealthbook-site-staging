@@ -412,21 +412,27 @@ footer {
 .closed-cover { position: absolute; inset: 0; overflow: hidden; background: var(--wash); border: 1px solid var(--hairline-strong); border-radius: var(--corner); box-shadow: 0 30px 60px -24px rgba(26, 24, 21, 0.35), 0 2px 0 rgba(255,255,255,0.6) inset; transform: rotateY(-8deg); transform-origin: left center; transition: transform 500ms ease, box-shadow 500ms ease; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px 32px; gap: 18px; }
 .closed:hover .closed-cover, .closed:focus-visible .closed-cover { transform: rotateY(-3deg); box-shadow: 0 36px 70px -24px rgba(26, 24, 21, 0.4), 0 2px 0 rgba(255,255,255,0.6) inset; }
 .closed-spine { position: absolute; left: 0; top: 2px; bottom: 2px; width: 10px; background: linear-gradient(to right, rgba(26, 24, 21, 0.18), rgba(26, 24, 21, 0)); border-radius: var(--corner) 0 0 var(--corner); pointer-events: none; }
-/* THE CORNER THAT INVITES (Ian, 12 Sep 2026: "they have PDF readers, it
-   animates the corner inviting you to turn it… you've got a little
-   crease there, it looks weird"). Not a folded triangle: the bottom
-   right corner peels up a little and settles, slowly, on its own, the
-   underside paper-white with a soft shadow beneath it; under the
-   pointer it lifts further and stays. */
-.closed-curl { position: absolute; right: -1px; bottom: -1px; width: 34px; height: 34px; pointer-events: none;
-  background: linear-gradient(225deg, transparent 0 50%, #ffffff 50% 100%);
-  border-radius: 0 0 var(--corner) 0;
-  filter: drop-shadow(-4px -4px 6px rgba(26, 24, 21, 0.18));
-  animation: peel 4.2s ease-in-out infinite; transform-origin: bottom right; }
+/* THE CORNER THAT INVITES (Ian, 12 Sep 2026, with a reader's curl for
+   reference: "it animates the corner inviting you to turn it"). A real
+   curl, in three parts on one square at the bottom right: the page
+   beneath, showing in the corner where the cover has lifted, with the
+   flap's shadow lying across it; the flap itself, the cover's underside
+   folded over toward the top left, lit at the fold and shaded toward
+   its tip, its fold a soft curve; and a hairline of shadow under the
+   flap's edge. It breathes — lifts a little and settles, slowly — and
+   lifts further, and stays, under the pointer. */
+.closed-curl { position: absolute; right: 0; bottom: 0; width: 56px; height: 56px; pointer-events: none;
+  /* the page beneath, in the corner, with the flap's shadow lying across it */
+  background: linear-gradient(225deg, #ffffff 0 22%, rgba(26, 24, 21, 0.20) 40%, rgba(26, 24, 21, 0.05) 49%, transparent 50%);
+  transform-origin: bottom right; transform: scale(0.8);
+  animation: peel 4.6s ease-in-out infinite; }
 .closed-curl::before { content: ""; position: absolute; inset: 0;
-  background: linear-gradient(225deg, transparent 0 50%, rgba(26, 24, 21, 0.10) 50% 62%, rgba(26, 24, 21, 0) 78%); }
-@keyframes peel { 0%, 100% { width: 30px; height: 30px; } 50% { width: 46px; height: 46px; } }
-.closed:hover .closed-curl { animation: none; width: 64px; height: 64px; transition: width 450ms ease, height 450ms ease; }
+  /* the flap: a curved cone from the fold to its lifted tip */
+  clip-path: path('M0 56 Q 40 40 56 0 L 8 8 Z');
+  background: linear-gradient(135deg, #bfb8aa 0%, #e6e2d9 38%, #fbfaf7 70%, #ffffff 100%);
+  filter: drop-shadow(-1px -1px 1.5px rgba(26, 24, 21, 0.22)); }
+@keyframes peel { 0%, 100% { transform: scale(0.8); } 50% { transform: scale(1.05); } }
+.closed:hover .closed-curl { animation: none; transform: scale(1.45); transition: transform 450ms ease; }
 @media (prefers-reduced-motion: reduce) { .closed-curl { animation: none; } }
 .closed .cover-name { font-size: clamp(26px, 3.6vw, 34px); }
 .closed-invite { position: absolute; left: 0; right: 0; bottom: -40px; text-align: center; font-family: var(--font-display); font-style: italic; font-size: 16px; color: var(--muted); transition: color 300ms; }
