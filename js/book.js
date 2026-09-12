@@ -173,8 +173,23 @@
     pages.push(left, right);
     paintRows(right, e, 3);
   });
-  var back = document.createElement('div'); back.className = 'page cover'; back.setAttribute('data-density', 'hard');
-  back.innerHTML = '<div class="cover-inner"><div class="kicker">Wealthbook</div><div class="cover-kept">Everything you own, everything you owe, and everything you need to know.</div></div>';
+  // THE END (Ian, 12 Sep 2026, on the old last spread: "that should be
+  // the back cover of the book, and we should do a nice statement at the
+  // end of it, on the right hand side"): the last spread is an endpaper
+  // — the tagline on the left, the closing statement and the door on the
+  // right — and then the back cover, a plain hardback, which closes the
+  // book the way the front does.
+  var endLeft = document.createElement('div'); endLeft.className = 'page';
+  endLeft.innerHTML = '<div class="plate-page endpaper"><div class="end-mark kicker">Wealthbook</div><div class="end-tagline">Everything you own, everything you owe, and everything you need to know.</div></div>';
+  var endRight = document.createElement('div'); endRight.className = 'page';
+  endRight.innerHTML = '<div class="words-page endword"><div class="folio-line kicker"><span class="chapter">The last page</span></div>' +
+    '<div class="entry-title"><span class="words">A book like this, for your family.</span></div>' +
+    '<p class="end-body">Every property, business, trust and account, written down properly and kept. Share it, or just the right pages, with the people who matter. Invite your adviser, your accountant, anyone who helps; they come and go. Charlie has read every page and says when something needs saying.</p>' +
+    '<p class="end-body"><b>The book stays yours.</b></p>' +
+    '<div class="end-doors"><a class="btn primary" href="https://secure.wealthbook.co.uk">Start your book</a><a href="#" class="link-btn end-close">Close the book</a></div></div>';
+  pages.push(endLeft, endRight);
+  var back = document.createElement('div'); back.className = 'page cover back-cover'; back.setAttribute('data-density', 'hard');
+  back.innerHTML = '<div class="cover-inner back-inner"><div class="kicker">Wealthbook</div></div>';
   pages.push(back);
   pages.forEach(function (p) { book.appendChild(p); });
 
@@ -247,15 +262,45 @@
     flip.update();
   }
   function openBook() {
-    widen(); window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (flip.getCurrentPageIndex() === 0) requestAnimationFrame(function () { flip.flipNext('top'); });
+    widen(); requestAnimationFrame(turnCover);
   }
-  function closeBook() {
-    stop(); document.body.classList.remove('opened');
+  // CLOSING IS ONE MOVEMENT (Ian, 12 Sep 2026: "it sort of turns and the
+  // new thing stays put… it's a hardback, so when you turn it just goes
+  // back and the text comes back in — a bit more smooth"). The engine
+  // has just swung the cover shut over the spread; now the closed book
+  // slides and settles into its seat beside the returning words, one
+  // eased movement rather than a jump: the cover's place is measured
+  // before and after the seat narrows, and the book is carried from the
+  // one to the other.
+  function closeBook(atPage) {
+    stop(); var to = atPage || 0;
+    var cover = book.querySelector('.page.cover'), wrap = book.querySelector('.stf__wrapper');
+    var before = cover ? cover.getBoundingClientRect() : null;
+    document.body.classList.remove('opened');
+    flip.update(); flip.turnToPage(to);
+    var after = cover ? cover.getBoundingClientRect() : null;
+    if (before && after && wrap && after.width && after.height) {
+      var dx = before.left - after.left, dy = before.top - after.top, sx = before.width / after.width, sy = before.height / after.height;
+      wrap.style.transition = 'none'; wrap.style.transformOrigin = 'top left';
+      wrap.style.transform = 'translate(' + dx + 'px, ' + dy + 'px) scale(' + sx + ', ' + sy + ')';
+      void wrap.offsetWidth;
+      wrap.style.transition = 'transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1)';
+      wrap.style.transform = '';
+      setTimeout(function () { wrap.style.transition = ''; wrap.style.transformOrigin = ''; }, 750);
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setTimeout(function () { flip.update(); flip.turnToPage(0); }, 60);
   }
-  document.querySelector('.close-book').addEventListener('click', closeBook);
+  document.querySelector('.close-book').addEventListener('click', function () { closeBook(); });
+  book.querySelectorAll('.end-doors a.btn').forEach(function (a) {
+    ['mousedown', 'touchstart', 'pointerdown'].forEach(function (t) { a.addEventListener(t, function (e) { e.stopPropagation(); }); });
+  });
+  book.querySelectorAll('.end-close').forEach(function (a) {
+    ['mousedown', 'touchstart', 'pointerdown'].forEach(function (t) { a.addEventListener(t, function (e) { e.stopPropagation(); }); });
+    a.addEventListener('click', function (e) { e.preventDefault(); closeBook(); });
+  });
+  // "Turn the first page" is a press as much as the cover is (Ian, 12 Sep
+  // 2026: "I click it and nothing happens").
+  document.querySelector('.closed-invite').addEventListener('click', function () { if (!isOpen()) openBook(); });
   // Pressing the closed book: the seat widens on the press, so the engine's
   // own click or corner-drag turns the cover onto a spread, never a lone
   // portrait page.
@@ -268,11 +313,26 @@
     // Only on the closed cover: a captured pointer would take the click
     // off a contents link.
     if (!isOpen()) {
-      if (e.pointerType !== 'touch' && book.setPointerCapture) { try { book.setPointerCapture(e.pointerId); } catch (_) {} }
+      if (e.pointerType !== 'touch') {
+        // No compatibility mouse events for this press: the engine never
+        // sees it, the house turns the cover on the release.
+        e.preventDefault();
+        if (book.setPointerCapture) { try { book.setPointerCapture(e.pointerId); } catch (_) {} }
+      }
       widen();
     }
   });
-  book.addEventListener('click', function () { press = null; });
+  book.addEventListener('pointerup', function (e) {
+    if (!press) return; var moved = Math.abs(e.clientX - press.x) > 5 || Math.abs(e.clientY - press.y) > 5; var wasClosed = press.wasClosed; press = null;
+    if (wasClosed && !moved && e.pointerType !== 'touch') turnCover();
+  });
+  // A closed book opens from whichever cover is up: the front turns
+  // forward to the contents, the back turns back to the last page.
+  function turnCover() {
+    var i = flip.getCurrentPageIndex();
+    if (i === 0) flip.flipNext('top'); else if (i >= pages.length - 1) flip.flipPrev('top');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
   // THE ENGINE'S OWN WAYS (Ian, 12 Sep 2026, on the drag-a-fifth: "a bit
   // weird… better if you just click the side of the page or roll up the
   // corner like we used to"): a press on the right page turns forward, on
@@ -285,18 +345,24 @@
     var p = flip.getCurrentPageIndex();
     if (p === 0) where.textContent = 'cover';
     else if (p < 3) where.textContent = 'contents';
+    else if (p >= pages.length - 1) where.textContent = 'the back';
     else { var e = entries[Math.floor((p - 3) / 2)]; where.textContent = e ? e.page : 'the end'; }
   }
   // BACK TO THE FRONT COVER MEANS THE BOOK IS CLOSED (Ian, 12 Sep 2026):
   // the open book never shows a lone cover; the words come back in and
   // the closed book stands beside them again. Only a turn BACK to the
   // cover closes it — the engine also reports the cover as it leaves it.
-  var lastPage = 0;
+  var lastPage = 0, invite = document.querySelector('.closed-invite');
   flip.on('flip', function (e) {
     say();
     var n = typeof e.data === 'number' ? e.data : flip.getCurrentPageIndex();
-    if (n > 0 && !isOpen()) { widen(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    var atEnd = n >= pages.length - 1;
+    if (n > 0 && !atEnd && !isOpen()) { widen(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
     if (n === 0 && lastPage > 0 && isOpen()) closeBook();
+    // The back cover closes the book too: turn the last page and the book
+    // lies shut, back up, the words back beside it.
+    if (atEnd && lastPage < n && isOpen()) closeBook(n);
+    invite.textContent = atEnd ? 'Back to the front' : 'Turn the first page';
     lastPage = n;
   });
   say();

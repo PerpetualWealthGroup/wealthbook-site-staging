@@ -320,7 +320,7 @@ body { background: var(--paper); color: var(--ink); }
 .plate-page { position: absolute; inset: 0; padding: 28px; display: flex; flex-direction: column; justify-content: center; }
 .plate-page .plate { flex: 1; margin: 0; height: auto; position: relative; }
 .plate-page .plate.picture:has(.plate-empty) { background: var(--wash); }
-.plate-page .plate.picture { flex: none; aspect-ratio: 3 / 2; width: 100%; background: transparent; border-bottom: 0; box-shadow: 0 1px 0 var(--hairline-strong); }
+.plate-page .plate.picture { flex: none; aspect-ratio: 16 / 9; width: 100%; background: transparent; border-bottom: 0; box-shadow: 0 1px 0 var(--hairline-strong); }
 .plate-page .plate.picture img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .plate-page .caption { margin-top: 12px; font-family: var(--font-display); font-style: italic; font-size: 15px; color: var(--soft); text-align: center; }
 /* A right page: the entry as the card held it. */
@@ -477,7 +477,7 @@ body { background: var(--paper); color: var(--ink); }
 .contents-foot { margin-top: auto; font-size: 13px; color: var(--muted); }
 .plate.family { padding: 0; }
 .plate-page.inside-cover { justify-content: center; padding-bottom: 40px; }
-.plate-page.inside-cover .plate.picture { flex: none; }
+.plate-page.inside-cover .plate.picture { flex: none; aspect-ratio: 3 / 2; }
 
 /* NO GAPS, NO DROP (Ian, 12 Sep 2026: "when you turn the page the text
    disappears over the other side… you've either got to use the page up
@@ -488,6 +488,7 @@ body { background: var(--paper); color: var(--ink); }
    right; the page's shape set so the words fill it. */
 .shelf { padding-top: 28px; animation: appear 600ms ease; }
 .hero { animation: appear 600ms ease; }
+.hero-words { animation: appear 650ms ease; }
 @keyframes appear { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .shelf { animation: none; } }
 .plate-page { justify-content: flex-start; padding: 26px 28px 24px; }
@@ -550,7 +551,7 @@ body.opened .seat-head { display: flex; justify-content: space-between; align-it
 .seat-head .close-book:hover { border-color: var(--ink); }
 body.opened .turns { display: flex; }
 body.opened .closed-invite { display: none; }
-.closed-invite { position: static; margin-top: 14px; text-align: center; font-family: var(--font-display); font-style: italic; font-size: 16px; color: var(--muted); }
+.closed-invite { position: static; margin-top: 14px; text-align: center; font-family: var(--font-display); font-style: italic; font-size: 16px; color: var(--muted); cursor: pointer; }
 .book-seat:hover .closed-invite { color: var(--ink); }
 /* At rest the cover wears the closed book's weight: a spine's shadow and a lift. */
 body:not(.opened) .book .page.cover { box-shadow: 0 30px 60px -24px rgba(26, 24, 21, 0.35), inset 8px 0 14px -10px rgba(26, 24, 21, 0.25); transition: box-shadow 450ms ease; }
@@ -566,9 +567,12 @@ body:not(.opened) .book { cursor: pointer; }
    shade down the gutter where the pages fall into the spine; the paper's
    depth at the outer edges as a few fine lines; the outer corners of the
    pages rounded the way pressed paper is. */
+/* No boards round the pages (Ian, same day, seeing them: "I kind of like
+   the little pages at the end left and right but I don't know if I like
+   the surround — doesn't look like a book"): the pages, their edges, the
+   gutter and the book's shadow on the desk. */
 body.opened .book { padding: 0; }
-body.opened .book .stf__wrapper { position: relative; z-index: 1; }
-body.opened .book::before { content: ""; position: absolute; left: -12px; right: -12px; top: -10px; bottom: -14px; background: linear-gradient(180deg, #ebe6dc, #e2dcd0); border: 1px solid var(--hairline-strong); border-radius: 10px; box-shadow: 0 40px 80px -28px rgba(26, 24, 21, 0.45), 0 2px 3px rgba(26, 24, 21, 0.12); z-index: 0; }
+body.opened .book .stf__wrapper { position: relative; z-index: 1; filter: drop-shadow(0 26px 40px rgba(26, 24, 21, 0.18)); }
 body.opened .book::after { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 120px; transform: translateX(-50%); pointer-events: none; z-index: 2; background: linear-gradient(90deg, rgba(26, 24, 21, 0) 0%, rgba(26, 24, 21, 0.07) 42%, rgba(26, 24, 21, 0.16) 50%, rgba(26, 24, 21, 0.07) 58%, rgba(26, 24, 21, 0) 100%); }
 body.opened .book .page.--left { border-radius: 5px 0 0 5px; box-shadow: inset -18px 0 30px -20px rgba(26, 24, 21, 0.30), -1px 0 0 #f6f3ed, -2px 0 0 #d8d2c6, -3px 0 0 #f6f3ed, -4px 0 0 #d8d2c6, -5px 0 0 #f6f3ed, -6px 0 0 #cfc8bb; }
 body.opened .book .page.--right { border-radius: 0 5px 5px 0; box-shadow: inset 18px 0 30px -20px rgba(26, 24, 21, 0.30), 1px 0 0 #f6f3ed, 2px 0 0 #d8d2c6, 3px 0 0 #f6f3ed, 4px 0 0 #d8d2c6, 5px 0 0 #f6f3ed, 6px 0 0 #cfc8bb; }
@@ -591,5 +595,5 @@ body:not(.opened) .book:hover .page.cover { box-shadow: 0 44px 70px -22px rgba(2
    better"). */
 .plate-page { padding: 18px 28px 26px; }
 .plate-page .caption { margin-top: 12px; }
-.left-facts { margin-top: 30px; padding-top: 18px; gap: 10px 18px; font-size: 15.5px; line-height: 1.55; }
+.left-facts { margin-top: 18px; padding-top: 14px; gap: 7px 18px; font-size: 15px; line-height: 1.45; }
 .left-facts dd { font-family: 'Newsreader', var(--font-display), Georgia, serif; font-size: 16.5px; }
