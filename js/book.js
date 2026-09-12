@@ -17,13 +17,38 @@
         { label: 'Held for', fixed: '15 years · the gain £2,400,000 after improvements' } ],
       story: 'Bought from the Pellows in 2011, with the coach house still a wreck. The kitchen took a year; the terrace was Clare’s idea and the best thing about the house.',
       footer: ['', 'written by you', 'the improvements read from the invoices in the vault · your estimate kept underneath', 'the gain worked from what you paid and what you spent · main home, so nothing to pay on a sale'] },
-    { chapter: 'Boats', page: 'p. 67', title: 'Lady Anne · Botnia Targa 46', facts: [['Boat', 'Botnia Targa 46 · 2019'], ['Length', '14.6 m · twin diesels'], ['Berth', 'Ocean Village Marina, Southampton · C14'], ['Held by', 'The family']], story: 'Named for a grandmother who never went near the water. She lives at Ocean Village and goes to the Solent most weekends the forecast allows.', image: 'images/lady-anne.webp', alt: 'Watercolour · Lady Anne at Ocean Village',
+    { chapter: 'Chattels', seq: 2, page: 'p. 67', title: 'Lady Anne · Botnia Targa 46', facts: [['Boat', 'Botnia Targa 46 · 2019'], ['Length', '14.6 m · twin diesels'], ['Berth', 'Ocean Village Marina, Southampton · C14'], ['Held by', 'The family']], story: 'Named for a grandmother who never went near the water. She lives at Ocean Village and goes to the Solent most weekends the forecast allows.', image: 'images/lady-anne.webp', alt: 'Watercolour · Lady Anne at Ocean Village',
       rows: [
         { label: 'Value', draft: '£620,000', settled: '£585,000', figure: true },
         { label: 'Source', draft: 'What you paid, 2021', settled: 'Broker valuation · Berthon, April', badge: true },
         { label: 'Berth', fixed: 'Ocean Village Marina · Southampton' },
         { label: 'Held by', fixed: 'The family' } ],
       footer: ['', 'written by you', 'broker valuation filed · purchase price kept underneath', 'survey booked · Charlie added it to the diary and the boat'] },
+    // THE CHATTELS IN THEIR ORDER (Ian, 12 Sep 2026: "there's no such
+    // thing as boats — boats belong in chattels… an old Land Rover handed
+    // down by my grandfather, then a boat, then Clare's car, which is
+    // leased — a mixture of everything, in the same order as Wealthbook
+    // itself"). The Land Rover's picture is to come from Ian.
+    { chapter: 'Chattels', seq: 1, page: '', title: 'The Land Rover · Series IIA, 1968', alt: 'Photograph · the Land Rover at the coach house',
+      facts: [['Car', 'Land Rover Series IIA · 1968 · 88-inch'], ['Registration', 'KPX 442F'], ['Kept at', 'March House · the coach house'], ['Came from', 'Jonathan’s grandfather, 1994'], ['Held by', 'Jonathan']],
+      rows: [
+        { label: 'Worth', draft: '£30,000', settled: '£38,000', figure: true },
+        { label: 'Source', draft: 'Your estimate', settled: 'Classic valuation · Hagerty, March', badge: true },
+        { label: 'What it cost', fixed: 'Nothing · handed down' },
+        { label: 'Restored', fixed: '2015 · engine and chassis, £14,200' },
+        { label: 'Insured', fixed: 'Agreed value £38,000 · Hagerty · renews October' } ],
+      story: 'Jonathan’s grandfather bought it new from the garage at Fittleworth and drove it for twenty-six years; it came to Jonathan with the farm keys. Restored in 2015 and out most weekends.',
+      footer: ['', 'written by you', 'valuation filed · the story kept', 'insurance renewal in the diary · Charlie will say when the agreed value drifts'] },
+    { chapter: 'Chattels', seq: 3, page: '', title: 'Clare’s car · leased', alt: 'Photograph · Clare’s car on the drive',
+      facts: [['Car', 'Range Rover P400e · 2025'], ['Registration', 'CL25 ARN'], ['Lease', 'Three years from March 2025'], ['Kept at', 'March House'], ['Held by', 'Clare']],
+      rows: [
+        { label: 'Lease', draft: 'about £1,200 a month', settled: '£1,180 a month · to March 2028', figure: true },
+        { label: 'Source', draft: 'From memory', settled: 'The lease agreement · in the vault', badge: true },
+        { label: 'Still to pay', fixed: '30 payments · £35,400' },
+        { label: 'Mileage', fixed: '10,000 a year · 6,200 so far' },
+        { label: 'In the book as', fixed: 'A commitment, not a thing owned' } ],
+      story: 'Leased, so it sits in the book as a commitment rather than a possession: the line runs through Cash flow, and the book will say when the lease has six months left.',
+      footer: ['', 'written by you', 'lease filed · the monthly line linked to Cash flow', 'six months’ notice in the diary · Charlie will raise it'] },
     { chapter: 'Property', page: 'p. 38', title: 'Coldharbour Rectory', alt: 'Watercolour · the Rectory from the lane',
       facts: [['Address', 'Coldharbour Rectory, Church Lane<br>Coldharbour, West Sussex'], ['What kind of place', 'Detached · six bedrooms · two acres · Grade II'], ['Tenure', 'Freehold · DN219004'], ['How it is used', 'Second home'], ['Tax position', 'Not the main home · CGT on a sale']],
       rows: [
@@ -34,7 +59,7 @@
         { label: 'Held for', fixed: '22 years · the roof in 2019, £64,000' } ],
       story: 'The family home. Jonathan’s office is the old study; the piano lives in the drawing room; the roof was done in 2019 and the bill is in the vault.',
       footer: ['', 'written by you', 'appraisal filed', 'listing confirmed against the National Heritage List · consent notes attached'] },
-    { chapter: 'Chattels', page: 'p. 92', title: 'Steinway Model B, 1928', facts: [['Maker', 'Steinway & Sons, Hamburg · 1928'], ['Serial', '259114 · Model B'], ['Kept at', 'Coldharbour Rectory · drawing room'], ['Insured', 'Hiscox · on the household schedule']], story: 'Isla’s piano, strictly speaking. Rebuilt in 2016 by Elgar & Sons, who tune it every December before the house fills up.', alt: 'Ink & wash · the Steinway in the drawing room',
+    { chapter: 'Chattels', seq: 4, page: 'p. 92', title: 'Steinway Model B, 1928', facts: [['Maker', 'Steinway & Sons, Hamburg · 1928'], ['Serial', '259114 · Model B'], ['Kept at', 'Coldharbour Rectory · drawing room'], ['Insured', 'Hiscox · on the household schedule']], story: 'Isla’s piano, strictly speaking. Rebuilt in 2016 by Elgar & Sons, who tune it every December before the house fills up.', alt: 'Ink & wash · the Steinway in the drawing room',
       rows: [
         { label: 'Value', draft: '£48,000', settled: '£52,000', figure: true },
         { label: 'Source', draft: 'Insured for, roughly', settled: 'Insurance schedule · Hiscox, renewal', badge: true },
@@ -140,12 +165,18 @@
   var book = document.getElementById('book');
   var pages = [];
   var cover = document.createElement('div'); cover.className = 'page cover'; cover.setAttribute('data-density', 'hard');
-  cover.innerHTML = '<div class="cover-inner"><div class="kicker">A record of a whole financial life</div><div class="cover-name">The Alderton Family</div><div class="cover-rule"></div><div class="cover-kept">Kept since 2026 · 9 chapters</div></div>';
+  cover.innerHTML = '<div class="cover-inner"><div class="kicker">A record of a whole financial life</div><div class="cover-name">The Alderton Family</div><div class="cover-rule"></div><div class="cover-kept">Kept since 2026 · 8 chapters</div></div>';
   pages.push(cover);
   // INSIDE THE COVER: the family's watercolour (its file to come) facing
   // the contents, every chapter a link that turns the book to it.
-  var order = ['About us', 'Property', 'Chattels', 'Boats', 'Cash flow & spending', 'Pensions & investments', 'Structures', 'Diary', 'Inheritance'];
-  entries.sort(function (a, b) { return order.indexOf(a.chapter) - order.indexOf(b.chapter); });
+  // THE ORDER IS WEALTHBOOK'S OWN (Ian, 12 Sep 2026: "we start to get
+  // some structure and order behind this… in the same order as Wealthbook
+  // itself"): the chapters as the book's menu has them, About us first;
+  // within a chapter by seq; and the folios run in order — the contents
+  // is page 1, each spread's right page carries its number.
+  var order = ['About us', 'Property', 'Chattels', 'Cash flow & spending', 'Pensions & investments', 'Structures', 'Diary', 'Inheritance'];
+  entries.sort(function (a, b) { return (order.indexOf(a.chapter) - order.indexOf(b.chapter)) || ((a.seq || 0) - (b.seq || 0)); });
+  entries.forEach(function (e, i) { e.page = 'p. ' + (3 + 2 * i); });
   var inside = document.createElement('div'); inside.className = 'page';
   // The Aldertons, a watercolour of a lunch by the harbour (the picture
   // Ian sent, 12 Sep 2026), with Bramble under the table.
