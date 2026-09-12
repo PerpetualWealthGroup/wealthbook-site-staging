@@ -409,12 +409,25 @@ footer {
 /* The closed book in the hero: the cover, at reading distance, a little
    turned toward the reader, its corner curling as you go over it. */
 .closed { position: relative; justify-self: center; width: min(360px, 100%); aspect-ratio: 460 / 640; perspective: 1400px; cursor: pointer; }
-.closed-cover { position: absolute; inset: 0; background: var(--wash); border: 1px solid var(--hairline-strong); border-radius: var(--corner); box-shadow: 0 30px 60px -24px rgba(26, 24, 21, 0.35), 0 2px 0 rgba(255,255,255,0.6) inset; transform: rotateY(-8deg); transform-origin: left center; transition: transform 500ms ease, box-shadow 500ms ease; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px 32px; gap: 18px; }
+.closed-cover { position: absolute; inset: 0; overflow: hidden; background: var(--wash); border: 1px solid var(--hairline-strong); border-radius: var(--corner); box-shadow: 0 30px 60px -24px rgba(26, 24, 21, 0.35), 0 2px 0 rgba(255,255,255,0.6) inset; transform: rotateY(-8deg); transform-origin: left center; transition: transform 500ms ease, box-shadow 500ms ease; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px 32px; gap: 18px; }
 .closed:hover .closed-cover, .closed:focus-visible .closed-cover { transform: rotateY(-3deg); box-shadow: 0 36px 70px -24px rgba(26, 24, 21, 0.4), 0 2px 0 rgba(255,255,255,0.6) inset; }
 .closed-spine { position: absolute; left: 0; top: 2px; bottom: 2px; width: 10px; background: linear-gradient(to right, rgba(26, 24, 21, 0.18), rgba(26, 24, 21, 0)); border-radius: var(--corner) 0 0 var(--corner); pointer-events: none; }
-/* The corner that curls: a small folded triangle at the bottom right, lifting on hover. */
-.closed-curl { position: absolute; right: 0; bottom: 0; width: 46px; height: 46px; background: linear-gradient(225deg, var(--paper) 0 50%, var(--hairline-strong) 50% 51%, var(--panel) 51%); box-shadow: -3px -3px 8px -4px rgba(26, 24, 21, 0.35); transition: width 450ms ease, height 450ms ease; }
-.closed:hover .closed-curl { width: 72px; height: 72px; }
+/* THE CORNER THAT INVITES (Ian, 12 Sep 2026: "they have PDF readers, it
+   animates the corner inviting you to turn it… you've got a little
+   crease there, it looks weird"). Not a folded triangle: the bottom
+   right corner peels up a little and settles, slowly, on its own, the
+   underside paper-white with a soft shadow beneath it; under the
+   pointer it lifts further and stays. */
+.closed-curl { position: absolute; right: -1px; bottom: -1px; width: 34px; height: 34px; pointer-events: none;
+  background: linear-gradient(225deg, transparent 0 50%, #ffffff 50% 100%);
+  border-radius: 0 0 var(--corner) 0;
+  filter: drop-shadow(-4px -4px 6px rgba(26, 24, 21, 0.18));
+  animation: peel 4.2s ease-in-out infinite; transform-origin: bottom right; }
+.closed-curl::before { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(225deg, transparent 0 50%, rgba(26, 24, 21, 0.10) 50% 62%, rgba(26, 24, 21, 0) 78%); }
+@keyframes peel { 0%, 100% { width: 30px; height: 30px; } 50% { width: 46px; height: 46px; } }
+.closed:hover .closed-curl { animation: none; width: 64px; height: 64px; transition: width 450ms ease, height 450ms ease; }
+@media (prefers-reduced-motion: reduce) { .closed-curl { animation: none; } }
 .closed .cover-name { font-size: clamp(26px, 3.6vw, 34px); }
 .closed-invite { position: absolute; left: 0; right: 0; bottom: -40px; text-align: center; font-family: var(--font-display); font-style: italic; font-size: 16px; color: var(--muted); transition: color 300ms; }
 .closed:hover .closed-invite { color: var(--ink); }
@@ -462,6 +475,7 @@ body.opened .closed { visibility: hidden; }
    right; the page's shape set so the words fill it. */
 body.opened .hero { display: none; }
 .shelf { padding-top: 28px; animation: appear 600ms ease; }
+.hero { animation: appear 600ms ease; }
 @keyframes appear { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .shelf { animation: none; } }
 .plate-page { justify-content: flex-start; padding: 26px 28px 24px; }

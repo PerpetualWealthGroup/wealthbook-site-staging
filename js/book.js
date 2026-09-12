@@ -202,14 +202,11 @@
     document.body.classList.add('opened');
     flip.update();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setTimeout(function () { if (flip.getCurrentPageIndex() === 0) flip.flipNext('top'); }, 500);
+    setTimeout(function () { if (flip.getCurrentPageIndex() === 0) flip.flipNext('top'); }, 350);
   }
   closed.addEventListener('click', openBook);
   closed.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openBook(); } });
-  document.querySelector('.close-book').addEventListener('click', function () {
-    stop(); document.body.classList.remove('opened');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  document.querySelector('.close-book').addEventListener('click', function () { closeBook(); flip.turnToPage(0); });
   document.querySelector('a[href="#the-book"]').addEventListener('click', function (e) { if (!document.body.classList.contains('opened')) { e.preventDefault(); openBook(); } });
   var where = document.querySelector('.turns .where');
   function say() {
@@ -218,7 +215,21 @@
     else if (p < 3) where.textContent = 'contents';
     else { var e = entries[Math.floor((p - 3) / 2)]; where.textContent = e ? e.page : 'the end'; }
   }
-  flip.on('flip', function () { say(); });
+  // BACK TO THE FRONT COVER MEANS THE BOOK IS CLOSED (Ian, 12 Sep 2026):
+  // the open book never shows a lone cover; the words come back in and
+  // the closed book stands beside them again. Only a turn BACK to the
+  // cover closes it — the engine also reports the cover as it leaves it.
+  var lastPage = 0;
+  flip.on('flip', function (e) {
+    say();
+    var n = typeof e.data === 'number' ? e.data : flip.getCurrentPageIndex();
+    if (n === 0 && lastPage > 0 && document.body.classList.contains('opened')) closeBook();
+    lastPage = n;
+  });
+  function closeBook() {
+    stop(); document.body.classList.remove('opened');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
   say();
   document.querySelector('.turns .prev').addEventListener('click', function () { stop(); flip.flipPrev('top'); });
   document.querySelector('.turns .next').addEventListener('click', function () { stop(); flip.flipNext('top'); });
