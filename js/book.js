@@ -29,7 +29,7 @@
     // down by my grandfather, then a boat, then Clare's car, which is
     // leased — a mixture of everything, in the same order as Wealthbook
     // itself"). The Land Rover's picture is to come from Ian.
-    { chapter: 'Chattels', seq: 1, page: '', title: 'The Land Rover · Series IIA, 1968', alt: 'Photograph · the Land Rover at the coach house',
+    { chapter: 'Chattels', seq: 1, page: '', title: 'The Land Rover · Series IIA, 1968', alt: 'Watercolour · the Land Rover on the lawn by the coach house', image: 'images/landrover.webp',
       facts: [['Car', 'Land Rover Series IIA · 1968 · 88-inch'], ['Registration', 'KPX 442F'], ['Kept at', 'March House · the coach house'], ['Came from', 'Jonathan’s grandfather, 1994'], ['Held by', 'Jonathan']],
       rows: [
         { label: 'Worth', draft: '£30,000', settled: '£38,000', figure: true },
