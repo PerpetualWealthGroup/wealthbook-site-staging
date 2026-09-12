@@ -8,15 +8,15 @@
    reader turns it or presses the quiet play in the gutter. */
 (function () {
   var entries = [
-    { chapter: 'Property', page: 'p. 41', title: 'Harbour House, Dartmouth', image: 'images/harbour-house.webp', alt: 'Watercolour · Harbour House from the water',
-      facts: [['Address', 'Harbour House, Newcomen Road, Dartmouth TQ6 9AF'], ['What kind of place', 'Detached · eight bedrooms · the slipway'], ['Tenure', 'Freehold · DN482119'], ['How it is used', 'Second home'], ['Ownership', 'The Alderton Family Trust'], ['Tax position', 'Not the main home · CGT on a sale']],
+    { chapter: 'Property', page: 'p. 41', title: 'March House', image: 'images/harbour-house.webp', alt: 'Watercolour · March House, Marchwood Lane, from the drive',
+      facts: [['Address', 'March House, Marchwood Lane, Fittleworth, West Sussex RH20 1AA'], ['What kind of place', 'Detached · eight bedrooms · the coach house'], ['Tenure', 'Freehold · DN482119'], ['How it is used', 'Second home'], ['Ownership', 'The Alderton Family Trust'], ['Tax position', 'Not the main home · CGT on a sale']],
       rows: [
         { label: 'Worth', draft: '£5,400,000', settled: '£5,650,000', figure: true },
         { label: 'Source', draft: 'Your estimate, 9 Mar', settled: 'HM Land Registry · DN482119', badge: true },
         { label: 'What you paid', fixed: '£4,000,000 · March 2011' },
         { label: 'Improvements', draft: 'the kitchen, roughly £600k', settled: '£640,000 · the kitchen and the terrace', figure: true },
         { label: 'Held for', fixed: '15 years · the gain £1,010,000 after improvements' } ],
-      story: 'Bought from the Pellows in 2011, the year the slipway last saw a boat. The kitchen was the old net loft; the terrace was Clare’s idea and the best thing about the house.',
+      story: 'Bought from the Pellows in 2011, with the coach house still a wreck. The kitchen took a year; the terrace was Clare’s idea and the best thing about the house.',
       footer: ['', 'written by you', 'settled by Land Registry · your estimate kept underneath · improvements read from the invoices in the vault', 'the gain worked from what you paid and what you spent · Charlie will say what a sale would cost'] },
     { chapter: 'Boats', page: 'p. 67', title: 'Lady Anne · Botnia Targa 46', facts: [['Boat', 'Botnia Targa 46 · 2019'], ['Length', '14.6 m · twin diesels'], ['Berth', 'Ocean Village Marina, Southampton · C14'], ['Held by', 'The family']], story: 'Named for a grandmother who never went near the water. She lives at Ocean Village and goes to the Solent most weekends the forecast allows.', image: 'images/lady-anne.webp', alt: 'Watercolour · Lady Anne at Ocean Village',
       rows: [
@@ -52,18 +52,18 @@
         { label: 'Held for', fixed: '32 years · nothing spent since the roof in 2008' } ],
       story: 'A chapel until 1971, a store until Jonathan’s father took it for the Trust in 1994. Used by the family a few weekends a year; the covenant restricts what it may become.',
       footer: ['', 'written by you', 'deeds found in the Trust chapter · value set from rebuild cost', 'covenant noted from the deeds · flagged to your solicitor'] },
-    { chapter: 'Structures', page: 'p. 12', title: 'The Alderton Family Trust', facts: [['Settled', '14 May 1998 · discretionary'], ['Trustees', 'Jonathan Alderton · Ruth Ellery'], ['Holds', 'Harbour House · The Chapel · two accounts'], ['Beneficiaries', 'Tom · Isla · their issue']], story: 'Set up by Jonathan’s father the year before he died. Ruth has been a trustee since 2015 and has the deed; the Trust’s own chapter carries the accounts.', alt: 'Ink sketch · the family tree',
+    { chapter: 'Structures', page: 'p. 12', title: 'The Alderton Family Trust', facts: [['Settled', '14 May 1998 · discretionary'], ['Trustees', 'Jonathan Alderton · Ruth Ellery'], ['Holds', 'March House · The Chapel · two accounts'], ['Beneficiaries', 'Tom · Isla · their issue']], story: 'Set up by Jonathan’s father the year before he died. Ruth has been a trustee since 2015 and has the deed; the Trust’s own chapter carries the accounts.', alt: 'Ink sketch · the family tree',
       rows: [
         { label: 'Settled', fixed: '1998 · discretionary' },
         { label: 'Trustees', draft: 'Jonathan, and Ruth', settled: 'Jonathan Alderton · Ruth Ellery', badge: true },
-        { label: 'Holds', draft: 'Harbour House, the Chapel…', settled: 'Harbour House · The Chapel · 2 accounts' },
+        { label: 'Holds', draft: 'March House, the Chapel…', settled: 'March House · The Chapel · 2 accounts' },
         { label: 'Beneficiaries', fixed: 'Tom · Isla · issue' } ],
       footer: ['', 'written by you', 'trustees confirmed from the deed · Ruth invited to this chapter', 'holdings linked from Property and Accounts · nothing typed twice'] },
-    { chapter: 'Diary', page: 'p. 131', title: 'Thursday · met the surveyor', kind: 'diary', story: 'Filed the same evening from the note above. Charlie found Marcus in the contacts, hung the line on Kittiwake and on Harbour House, and matched the invoice when it came.', alt: 'Your diary · Thursday 14 May',
+    { chapter: 'Diary', page: 'p. 131', title: 'Thursday · met the surveyor', kind: 'diary', story: 'Filed the same evening from the note above. Charlie found Marcus in the contacts, hung the line on Lady Anne and on March House, and matched the invoice when it came.', alt: 'Your diary · Thursday 14 May',
       rows: [
         { label: 'With', draft: 'Marcus', settled: 'Marcus Reid · surveyor', badge: true },
-        { label: 'About', draft: 'Kittiwake, the slipway', settled: 'Kittiwake survey · Harbour House slipway' },
-        { label: 'Outcome', draft: 'Report in a fortnight', settled: 'Report due 28 May · filed under Kittiwake' },
+        { label: 'About', draft: 'Lady Anne, the coach house', settled: 'Lady Anne’s survey · the coach house roof at March House' },
+        { label: 'Outcome', draft: 'Report in a fortnight', settled: 'Report due 28 May · filed under Lady Anne' },
         { label: 'Cost', draft: '£900 ish', settled: '£950 · Berthon invoice', figure: true } ],
       footer: ['', 'written by you', 'Charlie hung this note on two entries', 'invoice matched to your spending · Boats chapter updated'] }
   ];
@@ -113,7 +113,7 @@
   // line added later in a lighter hand.
   function diaryHtml() {
     return '<div class="diary-day">Thursday</div><div class="diary-date">14 May 2026</div>' +
-      '<div class="diary-note">Met Marcus at the slipway, 10ish.\nKittiwake survey — he’s looking at the slipway too.\nReport in a fortnight.\n£900 ish, invoice to follow.\n<span class="later">Invoice in — £950, Berthon.<span class="tick">✓</span></span></div>';
+      '<div class="diary-note">Met Marcus at the slipway, 10ish.\nLady Anne’s survey — he’s looking at the coach house roof too.\nReport in a fortnight.\n£900 ish, invoice to follow.\n<span class="later">Invoice in — £950, Berthon.<span class="tick">✓</span></span></div>';
   }
   // The workbook page: six months of spending by line, the house's own
   // paper sheet — small capitals, hairlines, tabular figures, the total
@@ -148,7 +148,7 @@
   var order = ['About us', 'Property', 'Chattels', 'Boats', 'Cash flow & spending', 'Pensions & investments', 'Structures', 'Diary', 'Inheritance'];
   entries.sort(function (a, b) { return order.indexOf(a.chapter) - order.indexOf(b.chapter); });
   var inside = document.createElement('div'); inside.className = 'page';
-  inside.innerHTML = '<div class="plate-page"><div class="plate picture family">Watercolour · the Aldertons at Harbour House</div><div class="caption">The family · summer 2026</div></div>';
+  inside.innerHTML = '<div class="plate-page"><div class="plate picture family">Watercolour · the Aldertons at March House</div><div class="caption">The family · summer 2026</div></div>';
   var contents = document.createElement('div'); contents.className = 'page';
   var chapters = []; entries.forEach(function (e, i) { if (!chapters.some(function (c) { return c.name === e.chapter; })) chapters.push({ name: e.chapter, entry: i, page: e.page }); });
   contents.innerHTML = '<div class="contents-page"><div class="kicker">The Alderton Family</div><div class="contents-title">Contents</div><ul class="contents-list">' +
