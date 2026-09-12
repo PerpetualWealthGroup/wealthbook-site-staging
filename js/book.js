@@ -9,15 +9,14 @@
 (function () {
   var entries = [
     { chapter: 'Property', page: 'p. 41', title: 'March House', image: 'images/harbour-house.webp', alt: 'Watercolour · March House, Marchwood Lane, from the drive',
-      facts: [['Address', 'March House, Marchwood Lane, Fittleworth, West Sussex RH20 1AA'], ['What kind of place', 'Detached · eight bedrooms · the coach house'], ['Tenure', 'Freehold · DN482119'], ['How it is used', 'Second home'], ['Ownership', 'The Alderton Family Trust'], ['Tax position', 'Not the main home · CGT on a sale']],
+      facts: [['Address', 'March House, Marchwood Lane, Fittleworth, West Sussex RH20 1AA'], ['What kind of place', 'Detached · eight bedrooms · the coach house'], ['Tenure', 'Freehold · DN482119'], ['Tax position', 'Main home · no CGT on a sale']],
       rows: [
-        { label: 'Worth', draft: '£5,400,000', settled: '£5,650,000', figure: true },
-        { label: 'Source', draft: 'Your estimate, 9 Mar', settled: 'HM Land Registry · DN482119', badge: true },
+        { label: 'Worth', draft: 'about £8m', settled: '£8,000,000', figure: true },
         { label: 'What you paid', fixed: '£4,000,000 · March 2011' },
-        { label: 'Improvements', draft: 'the kitchen, roughly £600k', settled: '£640,000 · the kitchen and the terrace', figure: true },
-        { label: 'Held for', fixed: '15 years · the gain £1,010,000 after improvements' } ],
+        { label: 'Improvements', draft: 'a lot, the kitchen and the terrace', settled: '£1,600,000 · qualifying, including the recent refurbishment of the kitchen and terrace', figure: true },
+        { label: 'Held for', fixed: '15 years · the gain £2,400,000 after improvements' } ],
       story: 'Bought from the Pellows in 2011, with the coach house still a wreck. The kitchen took a year; the terrace was Clare’s idea and the best thing about the house.',
-      footer: ['', 'written by you', 'settled by Land Registry · your estimate kept underneath · improvements read from the invoices in the vault', 'the gain worked from what you paid and what you spent · Charlie will say what a sale would cost'] },
+      footer: ['', 'written by you', 'the improvements read from the invoices in the vault · your estimate kept underneath', 'the gain worked from what you paid and what you spent · main home, so nothing to pay on a sale'] },
     { chapter: 'Boats', page: 'p. 67', title: 'Lady Anne · Botnia Targa 46', facts: [['Boat', 'Botnia Targa 46 · 2019'], ['Length', '14.6 m · twin diesels'], ['Berth', 'Ocean Village Marina, Southampton · C14'], ['Held by', 'The family']], story: 'Named for a grandmother who never went near the water. She lives at Ocean Village and goes to the Solent most weekends the forecast allows.', image: 'images/lady-anne.webp', alt: 'Watercolour · Lady Anne at Ocean Village',
       rows: [
         { label: 'Value', draft: '£620,000', settled: '£585,000', figure: true },
@@ -26,7 +25,7 @@
         { label: 'Held by', fixed: 'The family' } ],
       footer: ['', 'written by you', 'broker valuation filed · purchase price kept underneath', 'survey booked · Charlie added it to the diary and the boat'] },
     { chapter: 'Property', page: 'p. 38', title: 'Coldharbour Rectory', alt: 'Watercolour · the Rectory from the lane',
-      facts: [['Address', 'Coldharbour Rectory, Church Lane, Coldharbour'], ['What kind of place', 'Detached · six bedrooms · two acres · Grade II'], ['Tenure', 'Freehold · DN219004'], ['How it is used', 'Main home'], ['Ownership', 'Jonathan & Clare Alderton · jointly'], ['Tax position', 'Main home · private residence relief']],
+      facts: [['Address', 'Coldharbour Rectory, Church Lane, Coldharbour'], ['What kind of place', 'Detached · six bedrooms · two acres · Grade II'], ['Tenure', 'Freehold · DN219004'], ['How it is used', 'Second home'], ['Tax position', 'Not the main home · CGT on a sale']],
       rows: [
         { label: 'Worth', draft: '£2,100,000', settled: '£2,240,000', figure: true },
         { label: 'Source', draft: 'Your estimate', settled: 'Savills appraisal · Feb', badge: true },
