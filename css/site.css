@@ -300,8 +300,9 @@ body { background: var(--paper); color: var(--ink); }
 .shelf { position: relative; padding: 16px var(--gutter) 88px; display: flex; flex-direction: column; align-items: center; }
 .book { position: relative; width: min(1180px, 100%); }
 .book .page { background: var(--panel); color: var(--ink); border: 1px solid var(--hairline-strong); overflow: hidden; }
-.book .page.--left { border-right: 0; border-radius: var(--corner) 0 0 var(--corner); box-shadow: inset -14px 0 24px -18px rgba(26, 24, 21, 0.28); }
-.book .page.--right { border-left: 0; border-radius: 0 var(--corner) var(--corner) 0; box-shadow: inset 14px 0 24px -18px rgba(26, 24, 21, 0.28); }
+/* The gutter's shading is a spread's: on a phone, one page at a time, there is no spine to shade (Ian, 12 Sep 2026). */
+.book .--landscape .page.--left { border-right: 0; border-radius: var(--corner) 0 0 var(--corner); box-shadow: inset -14px 0 24px -18px rgba(26, 24, 21, 0.28); }
+.book .--landscape .page.--right { border-left: 0; border-radius: 0 var(--corner) var(--corner) 0; box-shadow: inset 14px 0 24px -18px rgba(26, 24, 21, 0.28); }
 .book .page.cover { background: var(--wash); border-radius: var(--corner); }
 /* The cover: the family's name, in the display face, on parchment. */
 .cover-inner { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px 36px; gap: 18px; }
@@ -573,9 +574,9 @@ body:not(.opened) .book { cursor: pointer; }
    gutter and the book's shadow on the desk. */
 body.opened .book { padding: 0; }
 body.opened .book .stf__wrapper { position: relative; z-index: 1; filter: drop-shadow(0 26px 40px rgba(26, 24, 21, 0.18)); }
-body.opened .book::after { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 120px; transform: translateX(-50%); pointer-events: none; z-index: 2; background: linear-gradient(90deg, rgba(26, 24, 21, 0) 0%, rgba(26, 24, 21, 0.07) 42%, rgba(26, 24, 21, 0.16) 50%, rgba(26, 24, 21, 0.07) 58%, rgba(26, 24, 21, 0) 100%); }
-body.opened .book .page.--left { border-radius: 5px 0 0 5px; box-shadow: inset -18px 0 30px -20px rgba(26, 24, 21, 0.30), -1px 0 0 #f6f3ed, -2px 0 0 #d8d2c6, -3px 0 0 #f6f3ed, -4px 0 0 #d8d2c6, -5px 0 0 #f6f3ed, -6px 0 0 #cfc8bb; }
-body.opened .book .page.--right { border-radius: 0 5px 5px 0; box-shadow: inset 18px 0 30px -20px rgba(26, 24, 21, 0.30), 1px 0 0 #f6f3ed, 2px 0 0 #d8d2c6, 3px 0 0 #f6f3ed, 4px 0 0 #d8d2c6, 5px 0 0 #f6f3ed, 6px 0 0 #cfc8bb; }
+body.opened .book:has(.stf__wrapper.--landscape)::after { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 120px; transform: translateX(-50%); pointer-events: none; z-index: 2; background: linear-gradient(90deg, rgba(26, 24, 21, 0) 0%, rgba(26, 24, 21, 0.07) 42%, rgba(26, 24, 21, 0.16) 50%, rgba(26, 24, 21, 0.07) 58%, rgba(26, 24, 21, 0) 100%); }
+body.opened .book .--landscape .page.--left { border-radius: 5px 0 0 5px; box-shadow: inset -18px 0 30px -20px rgba(26, 24, 21, 0.30), -1px 0 0 #f6f3ed, -2px 0 0 #d8d2c6, -3px 0 0 #f6f3ed, -4px 0 0 #d8d2c6, -5px 0 0 #f6f3ed, -6px 0 0 #cfc8bb; }
+body.opened .book .--landscape .page.--right { border-radius: 0 5px 5px 0; box-shadow: inset 18px 0 30px -20px rgba(26, 24, 21, 0.30), 1px 0 0 #f6f3ed, 2px 0 0 #d8d2c6, 3px 0 0 #f6f3ed, 4px 0 0 #d8d2c6, 5px 0 0 #f6f3ed, 6px 0 0 #cfc8bb; }
 /* The play in the gutter sits above the shade. */
 body.opened .book .play { z-index: 3; }
 body:not(.opened) .book .stf__wrapper { transition: transform 450ms ease; }
