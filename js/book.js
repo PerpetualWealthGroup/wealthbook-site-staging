@@ -8,7 +8,7 @@
    reader turns it or presses the quiet play in the gutter. */
 (function () {
   var entries = [
-    { chapter: 'Property', page: 'p. 41', title: 'Harbour House, Dartmouth', facts: [['Address', 'Harbour House, Newcomen Road, Dartmouth TQ6 9AF'], ['Title', 'DN482119 · freehold'], ['Bought', 'March 2011 · £1,150,000'], ['Kind', 'Detached · four bedrooms · the slipway']], story: 'Bought from the Pellows in 2011, the year the slipway last saw a boat. The kitchen was the old net loft; the terrace was Clare’s idea and the best thing about the house.', /* image: 'images/harbour-house.png' — the watercolour, once its file arrives */ alt: 'Watercolour · Harbour House from the water',
+    { chapter: 'Property', page: 'p. 41', title: 'Harbour House, Dartmouth', facts: [['Address', 'Harbour House, Newcomen Road, Dartmouth TQ6 9AF'], ['Title', 'DN482119 · freehold'], ['Bought', 'March 2011 · £1,150,000'], ['Kind', 'Detached · four bedrooms · the slipway']], story: 'Bought from the Pellows in 2011, the year the slipway last saw a boat. The kitchen was the old net loft; the terrace was Clare’s idea and the best thing about the house.', image: 'images/harbour-house.webp', alt: 'Watercolour · Harbour House from the water',
       rows: [
         { label: 'Value', draft: '£1,400,000', settled: '£1,485,000', figure: true },
         { label: 'Source', draft: 'Your estimate, 9 Mar', settled: 'HM Land Registry · DN482119', badge: true },
