@@ -1,0 +1,285 @@
+/* wealthbook-site — the house's tokens, worn by the front website.
+   Copied from the app's apps/web/app/globals.css :root so the site and
+   the book are one hand. Change the app first; this follows.
+
+   The hero came from Claude Design's handoff (12 Sep 2026, "Paper"
+   direction) drawn in Newsreader, Plex Mono and a green accent. It is
+   redressed here in the house's own clothes: Cormorant Garamond for
+   display, Instrument Sans for text, tabular figures in the display
+   face for money (as the book's own showcase does), the kicker for
+   every small-capitals label, and NO third colour — a draft is muted
+   italic, a settled fact is ink. Two radii and no more. */
+:root {
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-text: 'Instrument Sans', system-ui, sans-serif;
+  --paper: #fcfbf9;
+  --panel: #ffffff;
+  --ink: #1a1815;
+  --muted: #8a8375;
+  --soft: #6b6459;
+  --hairline: #e8e4dc;
+  --hairline-strong: #d8d2c6;
+  --wash: #f5f2ec;
+  --faint: #b0a893;
+  /* The corner law: exactly two radii in the whole product. */
+  --corner: 2px;
+  --corner-soft: 8px;
+  /* The page gutter: 64px on a desk, 20px in the hand. */
+  --gutter: 64px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a { color: inherit; }
+
+/* One column, the design's 1180 measure, centred. */
+.page {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── The kicker: the house's small capitals, used for every label ── */
+.kicker {
+  font-family: var(--font-text);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Buttons: the house's .btn, a hairline box in ink; the primary
+   is the same box filled. Hover only where hover exists (the
+   sticky-hover law: a phone's tap never leaves a button inverted). ── */
+.btn {
+  display: inline-block;
+  font-family: var(--font-text);
+  font-size: 15px;
+  line-height: 1;
+  text-decoration: none;
+  border: 1px solid var(--ink);
+  border-radius: var(--corner);
+  padding: 13px 22px;
+  color: var(--ink);
+  background: transparent;
+  transition: background 0.15s, color 0.15s;
+}
+.btn.primary { background: var(--ink); color: var(--paper); }
+.btn.small { font-size: 13px; padding: 8px 16px; }
+@media (hover: hover) {
+  .btn:hover { background: var(--ink); color: var(--paper); }
+  .btn.primary:hover { background: var(--paper); color: var(--ink); }
+}
+.btn:focus-visible { outline: 2px solid var(--faint); outline-offset: 3px; }
+/* The quiet second door: text on a hairline, as the house underlines. */
+.link-btn {
+  font-size: 15px;
+  text-decoration: none;
+  padding: 13px 2px;
+  border-bottom: 1px solid var(--ink);
+  color: var(--ink);
+}
+
+/* ── Nav: wordmark left, the one real door right ── */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 28px var(--gutter);
+  border-bottom: 1px solid var(--hairline);
+}
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+/* ── Hero: words left, the entry card right ── */
+.hero {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 72px;
+  padding: 96px var(--gutter) 88px;
+  align-items: center;
+}
+.hero-words { display: flex; flex-direction: column; gap: 28px; }
+h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(44px, 6vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  margin: 0;
+  text-wrap: pretty;
+}
+h1 em { font-weight: 400; font-style: italic; }
+.lede {
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--soft);
+  max-width: 30em;
+  margin: 0;
+  text-wrap: pretty;
+}
+.hero-doors { display: flex; gap: 20px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
+
+/* ── The entry card: one page of the book, writing itself ── */
+.entry {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--corner);
+  padding: 36px 40px 40px;
+  box-shadow: 0 1px 0 #fff inset, 0 20px 50px rgba(26, 24, 21, 0.08);
+  height: 700px;
+}
+/* The stitch along the top edge, in ink at a whisper. */
+.entry::before {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0; height: 6px;
+  background: repeating-linear-gradient(90deg, var(--ink) 0 8px, transparent 8px 16px);
+  opacity: 0.18;
+}
+/* The whole body fades for the page turn. */
+.entry-body {
+  display: flex; flex-direction: column; flex: 1;
+  transition: opacity 900ms ease-in-out;
+}
+.entry-body.turning { opacity: 0; }
+.running-head { display: flex; justify-content: space-between; }
+.plate {
+  position: relative;
+  margin-top: 22px;
+  height: 210px;
+  background: var(--wash);
+  border-bottom: 1px solid var(--hairline-strong);
+  overflow: hidden;
+}
+.plate img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Until an illustration arrives, the plate says what it is for. */
+.plate-empty {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-style: italic; font-size: 17px;
+  color: var(--faint); text-align: center; padding: 0 24px;
+}
+.entry-title {
+  margin-top: 22px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.2;
+  min-height: 36px;
+  display: flex; align-items: baseline; gap: 8px;
+}
+.caret {
+  display: inline-block; width: 2px; height: 26px; background: var(--ink);
+  animation: blink 1s infinite;
+}
+.caret[hidden] { display: none; }
+@keyframes blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
+.rows {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  row-gap: 12px; column-gap: 20px;
+  font-size: 17px;
+  align-items: baseline;
+}
+.row-label { color: var(--muted); }
+.row-value {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px;
+  min-height: 52px; align-content: flex-start;
+  color: var(--ink);
+  transition: color 1200ms ease;
+}
+/* What you wrote, before the house settled it. */
+.row-value.draft { color: var(--muted); font-style: italic; }
+/* Money and figures wear the display face's lining tabular figures,
+   as the book's own showcase does. */
+.row-value.figure { font-family: var(--font-display); font-size: 21px; font-weight: 600; font-variant-numeric: tabular-nums lining-nums; }
+.row-value.figure.draft { font-weight: 500; }
+.badge {
+  font-family: var(--font-text); font-style: normal; font-weight: 500;
+  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--ink); border: 1px solid var(--ink);
+  padding: 2px 7px; border-radius: var(--corner); line-height: 1.3;
+}
+.entry-foot {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px dashed var(--hairline-strong);
+  font-size: 13px; color: var(--muted);
+  min-height: 34px; line-height: 1.4;
+}
+
+/* ── The strip: three quiet facts under the hero ── */
+.strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--hairline);
+}
+.strip > div {
+  padding: 32px 40px 36px;
+  border-right: 1px solid var(--hairline);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.strip > div:first-child { padding-left: var(--gutter); }
+.strip > div:last-child { border-right: 0; padding-right: var(--gutter); }
+.strip-title { font-family: var(--font-display); font-weight: 500; font-size: 22px; line-height: 1.2; }
+.strip-body { font-size: 15.5px; line-height: 1.5; color: var(--soft); }
+
+footer {
+  border-top: 1px solid var(--hairline);
+  padding: 20px var(--gutter) 32px;
+  font-size: 13px;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* ── In the hand: one column, the card full width, the strip stacked ── */
+@media (max-width: 960px) {
+  :root { --gutter: 32px; }
+  .hero { grid-template-columns: 1fr; gap: 48px; padding: 64px var(--gutter) 56px; }
+  .entry { height: auto; min-height: 640px; }
+  .strip { grid-template-columns: 1fr; }
+  .strip > div { border-right: 0; border-bottom: 1px solid var(--hairline); padding: 24px var(--gutter); }
+  .strip > div:last-child { border-bottom: 0; }
+}
+@media (max-width: 600px) {
+  :root { --gutter: 20px; }
+  .nav { padding: 20px var(--gutter); }
+  .entry { padding: 28px 22px 28px; }
+  .rows { grid-template-columns: 96px 1fr; font-size: 16px; }
+  .row-value { min-height: 44px; }
+  .lede { font-size: 17px; }
+}
+
+/* Someone who asked for less motion gets the settled page, still. */
+@media (prefers-reduced-motion: reduce) {
+  .caret { animation: none; }
+  .entry-body, .row-value { transition: none; }
+}
