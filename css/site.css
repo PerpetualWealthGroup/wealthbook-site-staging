@@ -525,6 +525,33 @@ body { background: var(--paper); color: var(--ink); }
 .left-facts { font-size: 15.5px; }
 .left-facts dt, .row-label { font-family: var(--font-text); font-size: 13.5px; }
 .contents-list a { font-size: 18px; }
+/* One page at a time, on a phone: the contents at a size that fits, and
+   no play button over a lone page's foot. */
+.--portrait .contents-page { padding: 22px 22px 18px; }
+.--portrait .contents-title { font-size: 26px; margin: 2px 0 10px; }
+.--portrait .contents-list li { padding: 6px 0; }
+.--portrait .contents-list a { font-size: 16.5px; }
+.--portrait .contents-foot { margin-top: 12px; }
+.book:has(.stf__wrapper.--portrait) .play { display: none; }
+.--portrait .words-page { padding: 22px 20px 20px; }
+.--portrait .plate-page { padding: 16px 18px 18px; }
+.--portrait .left-facts { font-size: 14.5px; gap: 6px 14px; margin-top: 14px; padding-top: 12px; }
+.--portrait .words-page .rows { font-size: 14.5px; grid-template-columns: 84px 1fr; row-gap: 8px; }
+.--portrait .entry-body, .--portrait .end-body { font-size: 15px; line-height: 1.5; }
+.--portrait .row-value.figure .fig { font-size: 17px; }
+.--portrait .row-value.figure .fig-rest { font-size: 15px; }
+/* The smallest phones: a notch smaller again, so every page still fits. */
+@media (max-width: 370px) {
+  .--portrait .words-page { padding: 18px 16px 16px; }
+  .--portrait .words-page .rows { font-size: 13.5px; row-gap: 5px; grid-template-columns: 78px 1fr; }
+  .--portrait .entry-body, .--portrait .end-body { font-size: 14px; }
+  .--portrait .row-value.figure .fig { font-size: 16px; }
+  .--portrait .row-value.figure .fig-rest { font-size: 14px; }
+  .--portrait .plate-page { padding: 14px 14px 14px; }
+  .--portrait .left-facts { font-size: 13.5px; gap: 5px 12px; margin-top: 10px; padding-top: 10px; }
+  .--portrait .plate-page .caption { margin-top: 8px; font-size: 13px; }
+  .--portrait .entry-title { font-size: 24px; }
+}
 .story { font-family: 'Newsreader', var(--font-display), Georgia, serif; font-size: 17.5px; }
 .entry-foot { font-family: var(--font-text); }
 

@@ -256,12 +256,24 @@
   }
 
   // The engine: a soft turn, corner under the pointer, the cover alone.
+  // ON A PHONE THE PAGE IS TALLER (Ian, 12 Sep 2026, the contents cut
+  // off: "it's not getting it all in… one page at a time"): a page on
+  // its own has the room a spread's page hasn't, so the phone's book is
+  // built with a taller page — the engine takes one ratio for its life,
+  // so it is chosen by the width the book is born at.
+  var phone = window.innerWidth < 600;
   var flip = new St.PageFlip(book, {
-    width: 590, height: 720, size: 'stretch', minWidth: 300, maxWidth: 590, minHeight: 366, maxHeight: 720,
+    width: 590, height: phone ? 1100 : 720, size: 'stretch', minWidth: 300, maxWidth: 590, minHeight: 366, maxHeight: phone ? 1100 : 720,
     showCover: true, drawShadow: true, maxShadowOpacity: 0.28, flippingTime: 1100, usePortrait: true, mobileScrollSupport: false, startPage: 0,
     showPageCorners: true, swipeDistance: 30
   });
   flip.loadFromHTML(pages);
+  // A finger's swipe is a swipe (Ian, same day: "when you swipe to the
+  // right to close the book down again you don't get the nice
+  // animation"): the engine counts a swipe only within a quarter of a
+  // second; a real thumb takes longer, so it was reading the swipe as a
+  // half-made fold and letting the page fall back. Seven tenths now.
+  if (flip.getUI && flip.getUI()) flip.getUI().swipeTimeout = 700;
   // A chapter pressed on the contents turns the book to its first spread
   // (the cover is page 0, the inside cover 1, the contents 2; entry i's
   // pages are 3 + 2i and 4 + 2i).
@@ -336,8 +348,20 @@
   // own click or corner-drag turns the cover onto a spread, never a lone
   // portrait page.
   var press = null;
+  // On a phone the engine never sees a touch on the CLOSED book, so a
+  // finger scrolling past it scrolls the page and never turns the cover
+  // (Ian, 12 Sep 2026: "when you go to slide up your finger on the
+  // phone it opens the book — that should have been a tap"); the tap
+  // opens it below. Caught on the seat, before the engine's own listener.
+  var seat = document.getElementById('seat'), tapOpenedAt = 0;
+  seat.addEventListener('touchstart', function (e) { if (!isOpen()) e.stopPropagation(); }, true);
+  // The tap that opened the book must not echo as a mouse click the
+  // engine would turn a second page on (a touch's compatibility mouse
+  // events come after the touch ends).
+  seat.addEventListener('touchend', function (e) { if (Date.now() - tapOpenedAt < 600 && e.cancelable) e.preventDefault(); }, true);
   book.addEventListener('pointerdown', function (e) {
     press = { x: e.clientX, y: e.clientY, wasClosed: !isOpen() };
+    if (e.pointerType === 'touch') return; // a tap opens on the release; a scroll is a scroll
     // The book keeps the pointer while it is pressed, so the release still
     // lands on the book after the seat has widened under it (the phone's
     // press otherwise released on the words and nothing turned).
@@ -359,7 +383,7 @@
   book.addEventListener('mousemove', function (e) { if (!isOpen()) e.stopPropagation(); });
   book.addEventListener('pointerup', function (e) {
     if (!press) return; var moved = Math.abs(e.clientX - press.x) > 5 || Math.abs(e.clientY - press.y) > 5; var wasClosed = press.wasClosed; press = null;
-    if (wasClosed && !moved && e.pointerType !== 'touch') turnCover();
+    if (wasClosed && !moved) { if (e.pointerType === 'touch') tapOpenedAt = Date.now(); if (!isOpen()) widen(); turnCover(); }
   });
   // A closed book opens from whichever cover is up: the front turns
   // forward to the contents, the back turns back to the last page.
