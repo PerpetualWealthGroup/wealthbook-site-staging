@@ -322,6 +322,10 @@
       widen();
     }
   });
+  // While the book is closed the engine never sees the pointer move, so
+  // its corner-fold stays still on the hardback; the lift is the whole
+  // of the hover.
+  book.addEventListener('mousemove', function (e) { if (!isOpen()) e.stopPropagation(); });
   book.addEventListener('pointerup', function (e) {
     if (!press) return; var moved = Math.abs(e.clientX - press.x) > 5 || Math.abs(e.clientY - press.y) > 5; var wasClosed = press.wasClosed; press = null;
     if (wasClosed && !moved && e.pointerType !== 'touch') turnCover();

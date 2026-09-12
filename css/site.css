@@ -578,11 +578,12 @@ body.opened .book .page.--left { border-radius: 5px 0 0 5px; box-shadow: inset -
 body.opened .book .page.--right { border-radius: 0 5px 5px 0; box-shadow: inset 18px 0 30px -20px rgba(26, 24, 21, 0.30), 1px 0 0 #f6f3ed, 2px 0 0 #d8d2c6, 3px 0 0 #f6f3ed, 4px 0 0 #d8d2c6, 5px 0 0 #f6f3ed, 6px 0 0 #cfc8bb; }
 /* The play in the gutter sits above the shade. */
 body.opened .book .play { z-index: 3; }
-body:not(.opened) .book .stf__wrapper { transition: transform 450ms ease; transform-origin: left center; }
-/* Lifts, and opens a little: the free edge comes toward the reader
-   (Ian, 12 Sep 2026: "it should sort of lift up with a shadow and the
-   book should open a little bit… everything should say press me"). */
-body:not(.opened) .book:hover .stf__wrapper { transform: translateY(-10px) perspective(1400px) rotateY(-10deg); }
+body:not(.opened) .book .stf__wrapper { transition: transform 450ms ease; }
+/* Lifts, cleanly (Ian, 12 Sep 2026, on the tilt-and-curl: "it sort of
+   jitters around… just lift up, and then you turn the page — make it
+   clean"): the book rises and its shadow deepens; nothing else moves
+   until it is pressed. */
+body:not(.opened) .book:hover .stf__wrapper { transform: translateY(-10px); }
 body:not(.opened) .book .play { display: none; }
 /* "Turn the first page" throbs, quietly, until it is pressed. */
 @keyframes throb { 0%, 100% { opacity: 0.55; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-2px); } }
