@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Instrument+Sans:wght@400;500;600&family=Caveat:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
-  <link rel="stylesheet" href="css/site.css?v=20260912145413">
+  <link rel="stylesheet" href="css/site.css?v=20260912151640">
 </head>
 <body>
   <!-- The front page: the words and the closed family book; open it and
@@ -25,7 +25,7 @@
       <a class="btn primary small" href="https://secure.wealthbook.co.uk">Open your book</a>
     </span>
   </nav>
-  <section class="hero" id="top">
+  <section class="hero" id="top"><a id="the-book"></a>
     <div class="hero-words">
       <div class="kicker">A record of your whole financial life</div>
       <h1>Yours, and your family's, <em>for life.</em></h1>
@@ -35,22 +35,12 @@
         <a class="link-btn" href="#charlie">See how it thinks</a>
       </div>
     </div>
-    <div class="closed" id="closed" role="button" tabindex="0" aria-label="Open the book">
-      <div class="closed-cover">
-        <div class="closed-spine"></div>
-        <div class="kicker">A record of a whole financial life</div>
-        <div class="cover-name">The Alderton Family</div>
-        <div class="cover-rule"></div>
-        <div class="cover-kept">Kept since 2026 · 9 chapters</div>
-        <div class="closed-curl"></div>
-      </div>
+    <div class="book-seat" id="seat">
+      <div class="seat-head"><span class="kicker">The book</span><button type="button" class="close-book">Close the book</button></div>
+      <div class="book" id="book"></div>
       <div class="closed-invite">Turn the first page</div>
+      <div class="turns"><button type="button" class="prev" aria-label="Previous page">‹ back</button><span class="where">cover</span><button type="button" class="next" aria-label="Next page">forward ›</button></div>
     </div>
-  </section>
-  <section class="shelf" id="the-book">
-    <div class="shelf-head"><span class="kicker">The book</span><button type="button" class="close-book">Close the book</button></div>
-    <div class="book" id="book"></div>
-    <div class="turns"><button type="button" class="prev" aria-label="Previous page">‹ back</button><span class="where">cover</span><button type="button" class="next" aria-label="Next page">forward ›</button></div>
   </section>
   <section class="strip">
     <div><div class="strip-title">Keep the book</div><div class="strip-body">Property, businesses, trusts, the boat, what you spend. Every value confesses its source.</div></div>
@@ -71,8 +61,8 @@
       </div>
       <div class="part-foot">
         <p><b>Since you ask, it does stand for something.</b></p>
-        <div class="acronym"><span>Contextually aware</span><span>Holistic</span><span>AI</span><span>Responsive</span><span>Learning</span><span>Intuitive</span><span>Engine</span></div>
-        <p>We're aware. We named the reader first and the acronym caught up.</p>
+        <div class="acronym"><span>Contextual</span><span>Holistic</span><span>AI</span><span>Responsive</span><span>Learning</span><span>Intuitive</span><span>Engine</span></div>
+        <p>We named the reader first and the acronym caught up.</p>
       </div>
     </div>
   </section>
@@ -88,6 +78,6 @@
   <footer><span>Wealthbook</span><span>&copy; 2026</span></footer>
 </div>
   <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
-  <script src="js/book.js?v=20260912145413"></script>
+  <script src="js/book.js?v=20260912151640"></script>
 </body>
 </html>

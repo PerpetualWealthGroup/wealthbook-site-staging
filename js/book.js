@@ -9,7 +9,7 @@
 (function () {
   var entries = [
     { chapter: 'Property', page: 'p. 41', title: 'March House', image: 'images/harbour-house.webp', alt: 'Watercolour · March House, Marchwood Lane, from the drive',
-      facts: [['Address', 'March House, Marchwood Lane, Fittleworth, West Sussex RH20 1AA'], ['What kind of place', 'Detached · eight bedrooms · the coach house'], ['Tenure', 'Freehold · DN482119'], ['Tax position', 'Main home · no CGT on a sale']],
+      facts: [['Address', 'March House, Marchwood Lane<br>Fittleworth, West Sussex RH20 1AA'], ['What kind of place', 'Detached · eight bedrooms · the coach house'], ['Tenure', 'Freehold · DN482119'], ['Tax position', 'Main home · no CGT on a sale']],
       rows: [
         { label: 'Worth', draft: 'about £8m', settled: '£8,000,000', figure: true },
         { label: 'What you paid', fixed: '£4,000,000 · March 2011' },
@@ -25,7 +25,7 @@
         { label: 'Held by', fixed: 'The family' } ],
       footer: ['', 'written by you', 'broker valuation filed · purchase price kept underneath', 'survey booked · Charlie added it to the diary and the boat'] },
     { chapter: 'Property', page: 'p. 38', title: 'Coldharbour Rectory', alt: 'Watercolour · the Rectory from the lane',
-      facts: [['Address', 'Coldharbour Rectory, Church Lane, Coldharbour'], ['What kind of place', 'Detached · six bedrooms · two acres · Grade II'], ['Tenure', 'Freehold · DN219004'], ['How it is used', 'Second home'], ['Tax position', 'Not the main home · CGT on a sale']],
+      facts: [['Address', 'Coldharbour Rectory, Church Lane<br>Coldharbour, West Sussex'], ['What kind of place', 'Detached · six bedrooms · two acres · Grade II'], ['Tenure', 'Freehold · DN219004'], ['How it is used', 'Second home'], ['Tax position', 'Not the main home · CGT on a sale']],
       rows: [
         { label: 'Worth', draft: '£2,100,000', settled: '£2,240,000', figure: true },
         { label: 'Source', draft: 'Your estimate', settled: 'Savills appraisal · Feb', badge: true },
@@ -81,9 +81,9 @@
         { label: 'Over', fixed: 'The boat · £18,100 · the survey and the berth' },
         { label: 'Read by', draft: 'nobody yet', settled: 'Charlie · the plan and the spending disagree by 8%' } ],
       footer: ['', 'written by you', 'the workbook filled from the accounts · nothing typed twice', 'Charlie noticed the boat line and said so on the plan page'] },
-    { chapter: 'About us', page: 'p. 52', title: 'Tom', kind: 'person', story: 'Tom is seventeen and at Seaford College until 2027. His schooling is the book’s biggest line after the houses; the JISA his grandmother started is waiting for university.', alt: 'Tom Alderton · born 2009',
+    { chapter: 'About us', page: 'p. 52', title: 'Tom', kind: 'person', story: 'Tom is seventeen and at Kingsmere College until 2027. His schooling is the book’s biggest line after the houses; the JISA his grandmother started is waiting for university.', alt: 'Tom Alderton · born 2008',
       rows: [
-        { label: 'School', draft: 'Seaford, sixth form', settled: 'Seaford College · sixth form · leaves 2027' },
+        { label: 'School', draft: 'Kingsmere, sixth form', settled: 'Kingsmere College · sixth form · leaves 2027' },
         { label: 'Fees', draft: 'about £14k a term', settled: '£14,250 a term · £42,750 this year', figure: true },
         { label: 'Paid from', fixed: 'The general account · standing order' },
         { label: 'Next', draft: 'University, probably', settled: 'University 2027 · £9,535 a year · a JISA of £38,000 waiting' } ],
@@ -127,7 +127,7 @@
   }
   // A person's page: the face, who they are, what their schooling has cost.
   function personHtml() {
-    return '<div class="person-face">TA</div><div class="person-name">Tom Alderton</div><div class="person-sub">Born 3 March 2009 \u00b7 son \u00b7 at Seaford College</div>' +
+    return '<div class="person-face">TA</div><div class="person-name">Tom Alderton</div><div class="person-sub">Born 14 June 2008 \u00b7 son \u00b7 at Kingsmere College</div>' +
       '<div class="person-ledger"><div class="ledger-row"><span>Prep, 2013 to 2020</span><b>\u00a368,000</b></div><div class="ledger-row"><span>Senior, 2020 to date</span><b>\u00a3144,400</b></div><div class="ledger-row"><span>Music, the trips, the kit</span><b>\u00a311,900</b></div><div class="ledger-row total"><span>His education so far</span><b>\u00a3224,300</b></div></div>';
   }
   function ledgerHtml() {
@@ -147,7 +147,10 @@
   var order = ['About us', 'Property', 'Chattels', 'Boats', 'Cash flow & spending', 'Pensions & investments', 'Structures', 'Diary', 'Inheritance'];
   entries.sort(function (a, b) { return order.indexOf(a.chapter) - order.indexOf(b.chapter); });
   var inside = document.createElement('div'); inside.className = 'page';
-  inside.innerHTML = '<div class="plate-page"><div class="plate picture family">Watercolour · the Aldertons at March House</div><div class="caption">The family · summer 2026</div></div>';
+  // The Aldertons, a watercolour of a lunch by the harbour (the picture
+  // Ian sent, 12 Sep 2026), with Bramble under the table.
+  var familyImage = 'images/family.webp';
+  inside.innerHTML = '<div class="plate-page inside-cover"><div class="plate picture family"><img src="' + familyImage + '" alt="The Aldertons at lunch by the harbour, a watercolour"></div><div class="caption">The Aldertons, and Bramble · lunch on the harbour, summer 2026</div></div>';
   var contents = document.createElement('div'); contents.className = 'page';
   var chapters = []; entries.forEach(function (e, i) { if (!chapters.some(function (c) { return c.name === e.chapter; })) chapters.push({ name: e.chapter, entry: i, page: e.page }); });
   contents.innerHTML = '<div class="contents-page"><div class="kicker">The Alderton Family</div><div class="contents-title">Contents</div><ul class="contents-list">' +
@@ -186,8 +189,9 @@
       // page's own text.
       if (r.figure && !isDraft && value.indexOf(' \u00b7 ') > 0) {
         var cut = value.indexOf(' \u00b7 ');
-        var fig = document.createElement('span'); fig.className = 'fig'; fig.textContent = value.slice(0, cut);
-        var rest = document.createElement('span'); rest.className = 'fig-rest'; rest.textContent = value.slice(cut);
+        // The dot stays with the sum, so a wrapped line never opens with it.
+        var fig = document.createElement('span'); fig.className = 'fig'; fig.textContent = value.slice(0, cut) + '\u00a0\u00b7';
+        var rest = document.createElement('span'); rest.className = 'fig-rest'; rest.textContent = value.slice(cut + 2);
         cell.appendChild(fig); cell.appendChild(rest);
       } else { var span = document.createElement('span'); span.textContent = value; cell.appendChild(span); }
       if (done && r.badge) { var b = document.createElement('span'); b.className = 'badge'; b.textContent = 'on the record'; cell.appendChild(b); }
@@ -199,7 +203,8 @@
   // The engine: a soft turn, corner under the pointer, the cover alone.
   var flip = new St.PageFlip(book, {
     width: 590, height: 720, size: 'stretch', minWidth: 300, maxWidth: 590, minHeight: 366, maxHeight: 720,
-    showCover: true, drawShadow: true, maxShadowOpacity: 0.28, flippingTime: 1100, usePortrait: true, mobileScrollSupport: false, startPage: 0
+    showCover: true, drawShadow: true, maxShadowOpacity: 0.28, flippingTime: 1100, usePortrait: true, mobileScrollSupport: false, startPage: 0,
+    showPageCorners: true, swipeDistance: 30, disableFlipByClick: true
   });
   flip.loadFromHTML(pages);
   // A chapter pressed on the contents turns the book to its first spread
@@ -208,20 +213,70 @@
   contents.querySelectorAll('a[data-entry]').forEach(function (a) {
     a.addEventListener('click', function (e) { e.preventDefault(); stop(); flip.flip(3 + 2 * Number(a.getAttribute('data-entry')), 'top'); });
   });
-  // THE CLOSED BOOK opens the shelf: the cover in the hero is put away,
-  // the book appears across the page on its first spread, and the page
-  // scrolls to it. Close the book and the cover comes back.
-  var closed = document.getElementById('closed');
-  function openBook() {
+  // THE COVER'S TURN OPENS THE BOOK: the words go, the seat widens to the
+  // page and the engine lays the pages out as a spread. Turning back to
+  // the cover, or Close the book, puts it all back.
+  // THE ORDER MATTERS (12 Sep 2026, the "p. 52" opening): the engine turns
+  // pages on its own click and drag, so the house never turns a page the
+  // engine is already turning. Clicking a page is off (disableFlipByClick
+  // — a click on a contents link must not also turn the page); the corners
+  // and a drag are the engine's; the house turns the cover only when the
+  // reader presses the closed book or the menu's "The book".
+  function isOpen() { return document.body.classList.contains('opened'); }
+  function widen() {
+    // The seat widens first, so the cover turns onto the left of a spread
+    // where the words were, never as a lone portrait page that then jumps.
+    if (isOpen()) return;
     document.body.classList.add('opened');
     flip.update();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setTimeout(function () { if (flip.getCurrentPageIndex() === 0) flip.flipNext('top'); }, 350);
   }
-  closed.addEventListener('click', openBook);
-  closed.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openBook(); } });
-  document.querySelector('.close-book').addEventListener('click', function () { closeBook(); flip.turnToPage(0); });
-  document.querySelector('a[href="#the-book"]').addEventListener('click', function (e) { if (!document.body.classList.contains('opened')) { e.preventDefault(); openBook(); } });
+  function openBook() {
+    widen(); window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (flip.getCurrentPageIndex() === 0) requestAnimationFrame(function () { flip.flipNext('top'); });
+  }
+  function closeBook() {
+    stop(); document.body.classList.remove('opened');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(function () { flip.update(); flip.turnToPage(0); }, 60);
+  }
+  document.querySelector('.close-book').addEventListener('click', closeBook);
+  // Pressing the closed book: the seat widens on the press, so a drag that
+  // follows folds the cover in the wide seat; a plain click turns it.
+  var press = null;
+  book.addEventListener('pointerdown', function (e) {
+    press = { x: e.clientX, y: e.clientY, wasClosed: !isOpen() };
+    // The book keeps the pointer while it is pressed, so the release still
+    // lands on the book after the seat has widened under it (the phone's
+    // press otherwise released on the words and nothing turned).
+    // Only on the closed cover: a captured pointer would take the click
+    // off a contents link.
+    if (!isOpen()) {
+      if (e.pointerType !== 'touch' && book.setPointerCapture) { try { book.setPointerCapture(e.pointerId); } catch (_) {} }
+      widen();
+    }
+  });
+  book.addEventListener('click', function (e) {
+    if (!press) return; var moved = Math.abs(e.clientX - press.x) > 5 || Math.abs(e.clientY - press.y) > 5; var wasClosed = press.wasClosed; press = null;
+    if (wasClosed && !moved && flip.getCurrentPageIndex() === 0) { flip.flipNext('top'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  });
+  // A DRAG ACROSS A PAGE TURNS IT (Ian: "if you dragged the mouse over a
+  // certain amount it just turns the page"). The engine only completes a
+  // drag that crosses the spine; the house lowers that to a fifth of the
+  // page's width. This reaches into page-flip 2.0.7's flip controller
+  // (stopMove decides where a released fold goes) — the version is pinned.
+  var fc = flip.flipController, grabX = null, engineFold = fc.fold.bind(fc);
+  // The fold puts the corner under the pointer wherever it was grabbed, so
+  // the distance is measured from the grab, not from the corner.
+  fc.fold = function (pos) { var fresh = fc.calc === null; engineFold(pos); if (fresh && fc.calc !== null) grabX = fc.render.convertToPage(pos).x; };
+  fc.stopMove = function () {
+    if (fc.calc === null) return;
+    var pos = fc.calc.getPosition(), rect = fc.getBoundsRect();
+    var y = fc.calc.getCorner() === 'bottom' ? rect.height : 0;
+    var travelled = (grabX === null ? rect.pageWidth : grabX) - pos.x; grabX = null;
+    if (pos.x <= 0 || travelled > rect.pageWidth / 5) fc.animateFlippingTo(pos, { x: -rect.pageWidth, y: y }, true);
+    else fc.animateFlippingTo(pos, { x: rect.pageWidth, y: y }, false);
+  };
+  document.querySelector('a[href="#the-book"]').addEventListener('click', function (e) { if (!isOpen()) { e.preventDefault(); openBook(); } });
   var where = document.querySelector('.turns .where');
   function say() {
     var p = flip.getCurrentPageIndex();
@@ -237,18 +292,15 @@
   flip.on('flip', function (e) {
     say();
     var n = typeof e.data === 'number' ? e.data : flip.getCurrentPageIndex();
-    if (n === 0 && lastPage > 0 && document.body.classList.contains('opened')) closeBook();
+    if (n > 0 && !isOpen()) { widen(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    if (n === 0 && lastPage > 0 && isOpen()) closeBook();
     lastPage = n;
   });
-  function closeBook() {
-    stop(); document.body.classList.remove('opened');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
   say();
   document.querySelector('.turns .prev').addEventListener('click', function () { stop(); flip.flipPrev('top'); });
   document.querySelector('.turns .next').addEventListener('click', function () { stop(); flip.flipNext('top'); });
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'ArrowRight') { stop(); flip.flipNext('top'); }
+    if (e.key === 'ArrowRight') { stop(); if (!isOpen()) openBook(); else flip.flipNext('top'); }
     if (e.key === 'ArrowLeft') { stop(); flip.flipPrev('top'); }
     if (e.key === ' ' && !/INPUT|TEXTAREA|BUTTON/.test(document.activeElement.tagName)) { e.preventDefault(); play(); }
   });

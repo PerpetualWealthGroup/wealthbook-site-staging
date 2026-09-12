@@ -293,8 +293,10 @@ footer {
    under the pointer, the page bends and goes over the gutter with its
    shadow — and nothing turns unless the reader turns it or presses the
    quiet play in the gutter. ── */
+body { background: var(--paper); color: var(--ink); }
 .hero { display: block; padding: 72px var(--gutter) 40px; }
 .hero-words { max-width: 760px; }
+.sketch-note { font-size: 13px; color: var(--muted); padding: 14px 0 0; max-width: 60ch; }
 .shelf { position: relative; padding: 16px var(--gutter) 88px; display: flex; flex-direction: column; align-items: center; }
 .book { position: relative; width: min(1180px, 100%); }
 .book .page { background: var(--panel); color: var(--ink); border: 1px solid var(--hairline-strong); overflow: hidden; }
@@ -439,8 +441,6 @@ footer {
 .closed:hover .closed-invite { color: var(--ink); }
 /* Once opened, the closed book is put away and the shelf shows. */
 .shelf { display: none; }
-body.opened .shelf { display: flex; }
-body.opened .closed { visibility: hidden; }
 .shelf .shelf-head { width: min(1180px, 100%); display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px; }
 .shelf .shelf-head .kicker { margin: 0; }
 .shelf .close-book { all: unset; cursor: pointer; font-family: var(--font-text); font-size: 13px; color: var(--muted); padding: 4px 8px; border-radius: var(--corner); }
@@ -470,7 +470,9 @@ body.opened .closed { visibility: hidden; }
 .contents-list a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .contents-list .folio { color: var(--muted); font-size: 12px; letter-spacing: 1.5px; }
 .contents-foot { margin-top: auto; font-size: 13px; color: var(--muted); }
-.plate.family { background: var(--wash); display: flex; align-items: center; justify-content: center; text-align: center; padding: 24px; font-family: var(--font-display); font-style: italic; font-size: 17px; color: var(--faint); }
+.plate.family { padding: 0; }
+.plate-page.inside-cover { justify-content: center; padding-bottom: 40px; }
+.plate-page.inside-cover .plate.picture { flex: none; }
 
 /* NO GAPS, NO DROP (Ian, 12 Sep 2026: "when you turn the page the text
    disappears over the other side… you've either got to use the page up
@@ -479,7 +481,6 @@ body.opened .closed { visibility: hidden; }
    the menu. And a page is used up: the picture at the top of a left page
    with the thing's own facts beneath it; the story under the rows on the
    right; the page's shape set so the words fill it. */
-body.opened .hero { display: none; }
 .shelf { padding-top: 28px; animation: appear 600ms ease; }
 .hero { animation: appear 600ms ease; }
 @keyframes appear { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -524,3 +525,33 @@ body.opened .hero { display: none; }
 .row-value.figure { font-family: inherit; font-size: inherit; font-weight: inherit; }
 .row-value.figure .fig, .row-value.figure > span:only-child { font-family: var(--font-display); font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums lining-nums; }
 .row-value.figure .fig-rest { font-family: 'Newsreader', var(--font-display), Georgia, serif; font-size: 17.5px; font-weight: 400; }
+
+/* ONE BOOK, CLOSED OR OPEN (Ian, 12 Sep 2026: "the first page still
+   doesn't look right… the kind of page turn you want"). The closed book
+   in the hero IS the engine's cover, standing alone in its seat, so its
+   corner curls under the pointer exactly as every other page does. Turn
+   it and the words go, the seat widens to the page, and the engine lays
+   the pages out as a spread. Close the book and it all comes back. */
+.book-seat { position: relative; justify-self: center; width: min(400px, 100%); }
+/* The menu's anchor is no grid cell (it took the first one and pushed the book under the words). */
+.hero { position: relative; } #the-book { position: absolute; top: 0; }
+.seat-head, .turns { display: none; }
+body.opened .hero { grid-template-columns: 1fr; padding-top: 28px; }
+body.opened .hero-words { display: none; }
+body.opened .book-seat { width: min(1180px, 100%); justify-self: stretch; }
+body.opened .seat-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+.seat-head .close-book { all: unset; cursor: pointer; display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border: 1px solid var(--hairline-strong); border-radius: var(--corner); background: #fff; font-family: var(--font-text); font-size: 13px; color: var(--ink); }
+.seat-head .close-book:hover { border-color: var(--ink); }
+body.opened .turns { display: flex; }
+body.opened .closed-invite { display: none; }
+.closed-invite { position: static; margin-top: 14px; text-align: center; font-family: var(--font-display); font-style: italic; font-size: 16px; color: var(--muted); }
+.book-seat:hover .closed-invite { color: var(--ink); }
+/* At rest the cover wears the closed book's weight: a spine's shadow and a lift. */
+body:not(.opened) .book .page.cover { box-shadow: 0 30px 60px -24px rgba(26, 24, 21, 0.35), inset 8px 0 14px -10px rgba(26, 24, 21, 0.25); }
+/* The left page, with air (Ian: "raise the picture up a little… more
+   space underneath… put the address in properly… make the text a bit
+   better"). */
+.plate-page { padding: 18px 28px 26px; }
+.plate-page .caption { margin-top: 12px; }
+.left-facts { margin-top: 30px; padding-top: 18px; gap: 10px 18px; font-size: 15.5px; line-height: 1.55; }
+.left-facts dd { font-family: 'Newsreader', var(--font-display), Georgia, serif; font-size: 16.5px; }
