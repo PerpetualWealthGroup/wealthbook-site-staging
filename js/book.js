@@ -190,8 +190,12 @@
       if (r.figure && !isDraft && value.indexOf(' \u00b7 ') > 0) {
         var cut = value.indexOf(' \u00b7 ');
         // The dot stays with the sum, so a wrapped line never opens with it.
-        var fig = document.createElement('span'); fig.className = 'fig'; fig.textContent = value.slice(0, cut) + '\u00a0\u00b7';
-        var rest = document.createElement('span'); rest.className = 'fig-rest'; rest.textContent = value.slice(cut + 2);
+        var fig = document.createElement('span'); fig.className = 'fig';
+        var rest = document.createElement('span'); rest.className = 'fig-rest';
+        // A short tail rides beside the sum after a dot; a clause goes on
+        // its own line beneath, so no dot is left dangling at a line's end.
+        if (value.length - cut > 30) { fig.textContent = value.slice(0, cut); rest.className += ' fig-rest-line'; rest.textContent = value.slice(cut + 3); }
+        else { fig.textContent = value.slice(0, cut) + '\u00a0\u00b7'; rest.textContent = value.slice(cut + 2); }
         cell.appendChild(fig); cell.appendChild(rest);
       } else { var span = document.createElement('span'); span.textContent = value; cell.appendChild(span); }
       if (done && r.badge) { var b = document.createElement('span'); b.className = 'badge'; b.textContent = 'on the record'; cell.appendChild(b); }
@@ -291,6 +295,7 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'ArrowRight') { stop(); if (!isOpen()) openBook(); else flip.flipNext('top'); }
     if (e.key === 'ArrowLeft') { stop(); flip.flipPrev('top'); }
+    if (e.key === 'Escape' && isOpen()) closeBook();
     if (e.key === ' ' && !/INPUT|TEXTAREA|BUTTON/.test(document.activeElement.tagName)) { e.preventDefault(); play(); }
   });
 

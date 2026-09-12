@@ -525,6 +525,7 @@ body { background: var(--paper); color: var(--ink); }
 .row-value.figure { font-family: inherit; font-size: inherit; font-weight: inherit; }
 .row-value.figure .fig, .row-value.figure > span:only-child { font-family: var(--font-display); font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums lining-nums; }
 .row-value.figure .fig-rest { font-family: 'Newsreader', var(--font-display), Georgia, serif; font-size: 17.5px; font-weight: 400; }
+.row-value.figure .fig-rest-line { display: block; margin-top: 2px; }
 
 /* ONE BOOK, CLOSED OR OPEN (Ian, 12 Sep 2026: "the first page still
    doesn't look right… the kind of page turn you want"). The closed book
@@ -552,8 +553,33 @@ body:not(.opened) .book .page.cover { box-shadow: 0 30px 60px -24px rgba(26, 24,
    bit so you understand what it does — it invites you in"): the book
    rises toward the reader and its shadow deepens; a hardback, so no curl. */
 body:not(.opened) .book { cursor: pointer; }
-body:not(.opened) .book .stf__wrapper { transition: transform 450ms ease; }
-body:not(.opened) .book:hover .stf__wrapper { transform: translateY(-10px); }
+/* THE OPEN BOOK IS A BOOK, NOT A RECTANGLE (Ian, 12 Sep 2026: "when it's
+   folded out it just looks like a rectangle… a bit rounded, a bit more
+   shade… this is a showcase for us"). What the web's book readers do,
+   in our clothes: the boards of the hardback show a little all round
+   the pages, rounded, with the book's own shadow on the desk; a soft
+   shade down the gutter where the pages fall into the spine; the paper's
+   depth at the outer edges as a few fine lines; the outer corners of the
+   pages rounded the way pressed paper is. */
+body.opened .book { padding: 0; }
+body.opened .book .stf__wrapper { position: relative; z-index: 1; }
+body.opened .book::before { content: ""; position: absolute; left: -12px; right: -12px; top: -10px; bottom: -14px; background: linear-gradient(180deg, #ebe6dc, #e2dcd0); border: 1px solid var(--hairline-strong); border-radius: 10px; box-shadow: 0 40px 80px -28px rgba(26, 24, 21, 0.45), 0 2px 3px rgba(26, 24, 21, 0.12); z-index: 0; }
+body.opened .book::after { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 120px; transform: translateX(-50%); pointer-events: none; z-index: 2; background: linear-gradient(90deg, rgba(26, 24, 21, 0) 0%, rgba(26, 24, 21, 0.07) 42%, rgba(26, 24, 21, 0.16) 50%, rgba(26, 24, 21, 0.07) 58%, rgba(26, 24, 21, 0) 100%); }
+body.opened .book .page.--left { border-radius: 5px 0 0 5px; box-shadow: inset -18px 0 30px -20px rgba(26, 24, 21, 0.30), -1px 0 0 #f6f3ed, -2px 0 0 #d8d2c6, -3px 0 0 #f6f3ed, -4px 0 0 #d8d2c6, -5px 0 0 #f6f3ed, -6px 0 0 #cfc8bb; }
+body.opened .book .page.--right { border-radius: 0 5px 5px 0; box-shadow: inset 18px 0 30px -20px rgba(26, 24, 21, 0.30), 1px 0 0 #f6f3ed, 2px 0 0 #d8d2c6, 3px 0 0 #f6f3ed, 4px 0 0 #d8d2c6, 5px 0 0 #f6f3ed, 6px 0 0 #cfc8bb; }
+/* The play in the gutter sits above the shade. */
+body.opened .book .play { z-index: 3; }
+body:not(.opened) .book .stf__wrapper { transition: transform 450ms ease; transform-origin: left center; }
+/* Lifts, and opens a little: the free edge comes toward the reader
+   (Ian, 12 Sep 2026: "it should sort of lift up with a shadow and the
+   book should open a little bit… everything should say press me"). */
+body:not(.opened) .book:hover .stf__wrapper { transform: translateY(-10px) perspective(1400px) rotateY(-10deg); }
+body:not(.opened) .book .play { display: none; }
+/* "Turn the first page" throbs, quietly, until it is pressed. */
+@keyframes throb { 0%, 100% { opacity: 0.55; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-2px); } }
+.closed-invite { animation: throb 2.6s ease-in-out infinite; }
+.book-seat:hover .closed-invite { animation: none; opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .closed-invite { animation: none; opacity: 1; } body:not(.opened) .book .stf__wrapper { transition: none; } }
 body:not(.opened) .book:hover .page.cover { box-shadow: 0 44px 70px -22px rgba(26, 24, 21, 0.45), inset 8px 0 14px -10px rgba(26, 24, 21, 0.25); }
 /* The left page, with air (Ian: "raise the picture up a little… more
    space underneath… put the address in properly… make the text a bit
