@@ -296,7 +296,7 @@ footer {
 .hero { display: block; padding: 72px var(--gutter) 40px; }
 .hero-words { max-width: 760px; }
 .shelf { position: relative; padding: 16px var(--gutter) 88px; display: flex; flex-direction: column; align-items: center; }
-.book { position: relative; width: min(920px, 100%); }
+.book { position: relative; width: min(1180px, 100%); }
 .book .page { background: var(--panel); color: var(--ink); border: 1px solid var(--hairline-strong); overflow: hidden; }
 .book .page.--left { border-right: 0; border-radius: var(--corner) 0 0 var(--corner); box-shadow: inset -14px 0 24px -18px rgba(26, 24, 21, 0.28); }
 .book .page.--right { border-left: 0; border-radius: 0 var(--corner) var(--corner) 0; box-shadow: inset 14px 0 24px -18px rgba(26, 24, 21, 0.28); }
@@ -391,3 +391,100 @@ footer {
 .person-ledger .ledger-row { font-size: 13px; }
 .person-ledger .ledger-row b { font-size: 17px; }
 .person-ledger .ledger-row.total b { font-size: 22px; }
+
+/* ── THE CLOSED BOOK, INVITING (Ian, 12 Sep 2026: "you have your book
+   inviting you to turn the first page… when you turn the page you see
+   the whole book on the page like a big image… and other menu items at
+   the top"). At rest the hero is the words and the closed book beside
+   them, its corner lifting under the pointer. Turn it and the book opens
+   large across the page, on its own, and the reader flicks through. The
+   menu along the top names the parts of the site; each is a section of
+   this page until it earns a page of its own. ── */
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-links a { font-family: var(--font-text); font-size: 14.5px; color: var(--soft); text-decoration: none; }
+.nav-links a:hover { color: var(--ink); }
+@media (max-width: 700px) { .nav-links a:not(.btn) { display: none; } }
+.hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 72px; align-items: center; padding: 88px var(--gutter) 64px; }
+.hero-words { max-width: none; }
+/* The closed book in the hero: the cover, at reading distance, a little
+   turned toward the reader, its corner curling as you go over it. */
+.closed { position: relative; justify-self: center; width: min(360px, 100%); aspect-ratio: 460 / 640; perspective: 1400px; cursor: pointer; }
+.closed-cover { position: absolute; inset: 0; background: var(--wash); border: 1px solid var(--hairline-strong); border-radius: var(--corner); box-shadow: 0 30px 60px -24px rgba(26, 24, 21, 0.35), 0 2px 0 rgba(255,255,255,0.6) inset; transform: rotateY(-8deg); transform-origin: left center; transition: transform 500ms ease, box-shadow 500ms ease; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px 32px; gap: 18px; }
+.closed:hover .closed-cover, .closed:focus-visible .closed-cover { transform: rotateY(-3deg); box-shadow: 0 36px 70px -24px rgba(26, 24, 21, 0.4), 0 2px 0 rgba(255,255,255,0.6) inset; }
+.closed-spine { position: absolute; left: 0; top: 2px; bottom: 2px; width: 10px; background: linear-gradient(to right, rgba(26, 24, 21, 0.18), rgba(26, 24, 21, 0)); border-radius: var(--corner) 0 0 var(--corner); pointer-events: none; }
+/* The corner that curls: a small folded triangle at the bottom right, lifting on hover. */
+.closed-curl { position: absolute; right: 0; bottom: 0; width: 46px; height: 46px; background: linear-gradient(225deg, var(--paper) 0 50%, var(--hairline-strong) 50% 51%, var(--panel) 51%); box-shadow: -3px -3px 8px -4px rgba(26, 24, 21, 0.35); transition: width 450ms ease, height 450ms ease; }
+.closed:hover .closed-curl { width: 72px; height: 72px; }
+.closed .cover-name { font-size: clamp(26px, 3.6vw, 34px); }
+.closed-invite { position: absolute; left: 0; right: 0; bottom: -40px; text-align: center; font-family: var(--font-display); font-style: italic; font-size: 16px; color: var(--muted); transition: color 300ms; }
+.closed:hover .closed-invite { color: var(--ink); }
+/* Once opened, the closed book is put away and the shelf shows. */
+.shelf { display: none; }
+body.opened .shelf { display: flex; }
+body.opened .closed { visibility: hidden; }
+.shelf .shelf-head { width: min(1180px, 100%); display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px; }
+.shelf .shelf-head .kicker { margin: 0; }
+.shelf .close-book { all: unset; cursor: pointer; font-family: var(--font-text); font-size: 13px; color: var(--muted); padding: 4px 8px; border-radius: var(--corner); }
+.shelf .close-book:hover { color: var(--ink); background: var(--wash); }
+/* The other parts of the site, as sections until they earn pages. */
+.part { padding: 72px var(--gutter); border-top: 1px solid var(--hairline); }
+.part-inner { max-width: 720px; }
+.part h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(30px, 4vw, 40px); line-height: 1.1; margin: 0 0 20px; text-wrap: balance; }
+.part p { font-size: 17px; line-height: 1.55; color: var(--soft); margin: 0 0 16px; max-width: 60ch; }
+.part p b { color: var(--ink); font-weight: 600; }
+.acronym { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 8px; font-family: var(--font-display); font-size: 20px; color: var(--soft); }
+.acronym span::first-letter { color: var(--ink); font-weight: 600; }
+@media (max-width: 960px) { .hero { grid-template-columns: 1fr; gap: 56px; padding: 64px var(--gutter) 48px; } .closed { width: min(300px, 80%); } }
+
+/* THE SCRAPBOOK (Ian, 12 Sep 2026: "every page is something different —
+   a photo, a spreadsheet, a budget… the first page should be a picture
+   of the family on the inside cover… then chapters, About us, Chattels,
+   Property, our cash flow and spending… and they can be hyperlinks").
+   Inside the cover: the family's watercolour on the left, and facing it
+   the contents — every chapter a line you can press, which turns the
+   book to it. Or you just keep turning. */
+.contents-page { position: absolute; inset: 0; padding: 40px 38px; display: flex; flex-direction: column; }
+.contents-title { font-family: var(--font-display); font-size: 30px; font-weight: 500; margin: 6px 0 22px; }
+.contents-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.contents-list li { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--hairline); }
+.contents-list a { color: var(--ink); text-decoration: none; font-size: 16.5px; }
+.contents-list a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.contents-list .folio { color: var(--muted); font-size: 12px; letter-spacing: 1.5px; }
+.contents-foot { margin-top: auto; font-size: 13px; color: var(--muted); }
+.plate.family { background: var(--wash); display: flex; align-items: center; justify-content: center; text-align: center; padding: 24px; font-family: var(--font-display); font-style: italic; font-size: 17px; color: var(--faint); }
+
+/* NO GAPS, NO DROP (Ian, 12 Sep 2026: "when you turn the page the text
+   disappears over the other side… you've either got to use the page up
+   or not"). Opening the book does not scroll the page: the words and
+   the closed cover go, and the open book stands where they stood, under
+   the menu. And a page is used up: the picture at the top of a left page
+   with the thing's own facts beneath it; the story under the rows on the
+   right; the page's shape set so the words fill it. */
+body.opened .hero { display: none; }
+.shelf { padding-top: 28px; animation: appear 600ms ease; }
+@keyframes appear { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .shelf { animation: none; } }
+.plate-page { justify-content: flex-start; padding: 26px 28px 24px; }
+.plate-page .caption { margin-top: 10px; }
+.left-facts { margin-top: 22px; border-top: 1px solid var(--hairline); padding-top: 16px; display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; font-size: 14px; line-height: 1.45; }
+.left-facts dt { color: var(--muted); }
+.left-facts dd { margin: 0; color: var(--ink); }
+.words-page { padding: 28px 34px 28px; }
+.words-page .entry-title { font-size: 30px; }
+.words-page .rows { margin-top: 16px; font-size: 16.5px; }
+.words-page .row-value { min-height: 44px; }
+.story { margin-top: 18px; font-family: var(--font-display); font-size: 18px; line-height: 1.5; color: var(--soft); text-wrap: pretty; }
+.story::first-letter { font-size: 1.35em; color: var(--ink); }
+
+/* A PART USES THE PAGE (Ian, 12 Sep 2026, on the Charlie section: "used
+   up a bit of the page on this"): the thesis on the left, the three
+   points on the right, the acronym across the foot. One column again on
+   a phone. */
+.part-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px 72px; align-items: start; }
+.part-lead p { font-size: 19px; max-width: none; }
+.part-points { padding-top: 58px; }
+.part-points p { max-width: none; }
+.part-foot { grid-column: 1 / -1; border-top: 1px solid var(--hairline); padding-top: 22px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 28px; }
+.part-foot p { margin: 0; }
+.part-foot .acronym { margin: 0; }
+@media (max-width: 900px) { .part-grid { grid-template-columns: 1fr; gap: 8px; } .part-points { padding-top: 0; } }

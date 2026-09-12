@@ -1,15 +1,14 @@
-/* THE FAMILY BOOK — the front page's one piece of motion (Ian, 12 Sep
-   2026: "a beautiful animated family book… sometimes when you turn the
-   book there'll be a spreadsheet, sometimes another page with something
-   on it"). A cover, then spreads: the thing itself on the left — a
-   watercolour, a diary page in pencil, the workbook, a person — and what
-   the book made of it on the right. A page-flip engine (page-flip, from
-   the CDN) does the turning; nothing turns unless the reader turns it
-   or presses the quiet play in the gutter, which writes the right-hand
-   page from blank and turns on until stopped. Plain JavaScript. */
+/* THE FAMILY BOOK — the front page (Ian, 12 Sep 2026: "a beautiful
+   animated family book… like a scrapbook, every page something
+   different"). The words and the closed book; open it and it stands
+   where the words were, full width; inside the cover the family faces
+   the contents, every chapter a link; then spreads — the thing itself
+   on the left, what the book made of it on the right. A page-flip engine
+   (page-flip, from the CDN) turns the pages; nothing turns unless the
+   reader turns it or presses the quiet play in the gutter. */
 (function () {
   var entries = [
-    { chapter: 'Chapter 3 · Property', page: 'p. 41', title: 'Harbour House, Dartmouth', /* image: 'images/harbour-house.png' — the watercolour, once its file arrives */ alt: 'Watercolour · Harbour House from the water',
+    { chapter: 'Property', page: 'p. 41', title: 'Harbour House, Dartmouth', facts: [['Address', 'Harbour House, Newcomen Road, Dartmouth TQ6 9AF'], ['Title', 'DN482119 · freehold'], ['Bought', 'March 2011 · £1,150,000'], ['Kind', 'Detached · four bedrooms · the slipway']], story: 'Bought from the Pellows in 2011, the year the slipway last saw a boat. The kitchen was the old net loft; the terrace was Clare’s idea and the best thing about the house.', /* image: 'images/harbour-house.png' — the watercolour, once its file arrives */ alt: 'Watercolour · Harbour House from the water',
       rows: [
         { label: 'Value', draft: '£1,400,000', settled: '£1,485,000', figure: true },
         { label: 'Source', draft: 'Your estimate, 9 Mar', settled: 'HM Land Registry · DN482119', badge: true },
@@ -19,42 +18,42 @@
     // Ian's own boat (12 Sep 2026): Lady Anne, a Botnia Targa 46, kept
     // at Ocean Village, owned by the family. The figures stay the
     // Alderton book's fiction; the boat and the berth are real.
-    { chapter: 'Chapter 5 · Boats', page: 'p. 67', title: 'Lady Anne · Botnia Targa 46', image: 'images/lady-anne.webp', alt: 'Watercolour · Lady Anne at Ocean Village',
+    { chapter: 'Boats', page: 'p. 67', title: 'Lady Anne · Botnia Targa 46', facts: [['Boat', 'Botnia Targa 46 · 2019'], ['Length', '14.6 m · twin diesels'], ['Berth', 'Ocean Village Marina, Southampton · C14'], ['Held by', 'The family']], story: 'Named for a grandmother who never went near the water. She lives at Ocean Village and goes to the Solent most weekends the forecast allows.', image: 'images/lady-anne.webp', alt: 'Watercolour · Lady Anne at Ocean Village',
       rows: [
         { label: 'Value', draft: '£620,000', settled: '£585,000', figure: true },
         { label: 'Source', draft: 'What you paid, 2021', settled: 'Broker valuation · Berthon, April', badge: true },
         { label: 'Berth', fixed: 'Ocean Village Marina · Southampton' },
         { label: 'Held by', fixed: 'The family' } ],
       footer: ['', 'written by you', 'broker valuation filed · purchase price kept underneath', 'survey booked · Charlie added it to the diary and the boat'] },
-    { chapter: 'Chapter 3 · Property', page: 'p. 38', title: 'Coldharbour Rectory', alt: 'Watercolour · the Rectory from the lane',
+    { chapter: 'Property', page: 'p. 38', title: 'Coldharbour Rectory', facts: [['Address', 'Coldharbour Rectory, Church Lane, Coldharbour'], ['Title', 'DN219004 · freehold · Grade II'], ['Bought', 'September 2004 · £1,420,000'], ['Kind', 'Detached · six bedrooms · two acres']], story: 'The family home. Jonathan’s office is the old study; the piano lives in the drawing room; the roof was done in 2019 and the bill is in the vault.', alt: 'Watercolour · the Rectory from the lane',
       rows: [
         { label: 'Value', draft: '£2,100,000', settled: '£2,240,000', figure: true },
         { label: 'Source', draft: 'Your estimate', settled: 'Savills appraisal · Feb', badge: true },
         { label: 'Listing', draft: 'Grade II, I think', settled: 'Grade II · Historic England 1108422', badge: true },
         { label: 'Held by', fixed: 'Jonathan & Clare Alderton' } ],
       footer: ['', 'written by you', 'appraisal filed', 'listing confirmed against the National Heritage List · consent notes attached'] },
-    { chapter: 'Chapter 7 · Collections', page: 'p. 92', title: 'Steinway Model B, 1928', alt: 'Ink & wash · the Steinway in the drawing room',
+    { chapter: 'Chattels', page: 'p. 92', title: 'Steinway Model B, 1928', facts: [['Maker', 'Steinway & Sons, Hamburg · 1928'], ['Serial', '259114 · Model B'], ['Kept at', 'Coldharbour Rectory · drawing room'], ['Insured', 'Hiscox · on the household schedule']], story: 'Isla’s piano, strictly speaking. Rebuilt in 2016 by Elgar & Sons, who tune it every December before the house fills up.', alt: 'Ink & wash · the Steinway in the drawing room',
       rows: [
         { label: 'Value', draft: '£48,000', settled: '£52,000', figure: true },
         { label: 'Source', draft: 'Insured for, roughly', settled: 'Insurance schedule · Hiscox, renewal', badge: true },
         { label: 'Kept at', fixed: 'Coldharbour Rectory · drawing room' },
         { label: 'Note', draft: 'Tune before Christmas', settled: 'Tuning · Elgar & Sons · 3 Dec' } ],
       footer: ['', 'written by you', 'insured value read from the renewal schedule', 'tuner added as a contact · reminder set'] },
-    { chapter: 'Chapter 3 · Property', page: 'p. 44', title: 'The Chapel, St Anne’s', alt: 'Watercolour · the Chapel in winter light',
+    { chapter: 'Property', page: 'p. 44', title: 'The Chapel, St Anne’s', facts: [['Address', 'The Chapel, St Anne’s Lane, Coldharbour'], ['Title', 'DN301877 · freehold'], ['Conveyed', '1994 · into the Trust'], ['Kind', 'Former chapel · one room · the covenant']], story: 'A chapel until 1971, a store until Jonathan’s father took it for the Trust in 1994. Used by the family a few weekends a year; the covenant restricts what it may become.', alt: 'Watercolour · the Chapel in winter light',
       rows: [
         { label: 'Value', draft: 'Nominal', settled: '£310,000', figure: true },
         { label: 'Source', draft: 'Not sure it has one', settled: 'Deeds · conveyed 1994 · rebuild cost basis', badge: true },
         { label: 'Held by', fixed: 'The Alderton Family Trust' },
         { label: 'Use', draft: 'Family, occasionally', settled: 'Family · covenant restricts change of use' } ],
       footer: ['', 'written by you', 'deeds found in the Trust chapter · value set from rebuild cost', 'covenant noted from the deeds · flagged to your solicitor'] },
-    { chapter: 'Chapter 2 · Structures', page: 'p. 12', title: 'The Alderton Family Trust', alt: 'Ink sketch · the family tree',
+    { chapter: 'Structures', page: 'p. 12', title: 'The Alderton Family Trust', facts: [['Settled', '14 May 1998 · discretionary'], ['Trustees', 'Jonathan Alderton · Ruth Ellery'], ['Holds', 'Harbour House · The Chapel · two accounts'], ['Beneficiaries', 'Tom · Isla · their issue']], story: 'Set up by Jonathan’s father the year before he died. Ruth has been a trustee since 2015 and has the deed; the Trust’s own chapter carries the accounts.', alt: 'Ink sketch · the family tree',
       rows: [
         { label: 'Settled', fixed: '1998 · discretionary' },
         { label: 'Trustees', draft: 'Jonathan, and Ruth', settled: 'Jonathan Alderton · Ruth Ellery', badge: true },
         { label: 'Holds', draft: 'Harbour House, the Chapel…', settled: 'Harbour House · The Chapel · 2 accounts' },
         { label: 'Beneficiaries', fixed: 'Tom · Isla · issue' } ],
       footer: ['', 'written by you', 'trustees confirmed from the deed · Ruth invited to this chapter', 'holdings linked from Property and Accounts · nothing typed twice'] },
-    { chapter: 'Chapter 9 · Diary', page: 'p. 131', title: 'Thursday · met the surveyor', kind: 'diary', alt: 'Your diary · Thursday 14 May',
+    { chapter: 'Diary', page: 'p. 131', title: 'Thursday · met the surveyor', kind: 'diary', story: 'Filed the same evening from the note above. Charlie found Marcus in the contacts, hung the line on Kittiwake and on Harbour House, and matched the invoice when it came.', alt: 'Your diary · Thursday 14 May',
       rows: [
         { label: 'With', draft: 'Marcus', settled: 'Marcus Reid · surveyor', badge: true },
         { label: 'About', draft: 'Kittiwake, the slipway', settled: 'Kittiwake survey · Harbour House slipway' },
@@ -63,28 +62,28 @@
       footer: ['', 'written by you', 'Charlie hung this note on two entries', 'invoice matched to your spending · Boats chapter updated'] }
   ];
   entries.push(
-    { chapter: 'Chapter 6 · Portfolio', page: 'p. 78', title: 'The Alderton pension and ISAs', kind: 'chart', alt: 'The portfolio since 2019',
+    { chapter: 'Pensions & investments', page: 'p. 78', title: 'The Alderton pension and ISAs', kind: 'chart', story: 'Jonathan’s SIPP, two ISAs and the general account, valued from the platform every morning. The drawing runs at £6,000 a month against a plan that allows £5,500.', alt: 'The portfolio since 2019',
       rows: [
         { label: 'Value', draft: 'about £2.4m', settled: '£2,463,180', figure: true },
         { label: 'Source', draft: 'Last statement, roughly', settled: 'Platform feed · valued today', badge: true },
         { label: 'Pots', fixed: 'SIPP · 2 ISAs · a general account' },
         { label: 'Drawing', draft: 'Around £6,000 a month', settled: '£6,000 a month · 2.9% of the pot' } ],
       footer: ['', 'written by you', 'valued from the platform this morning · the line is drawn from every day since 2019', 'the drawing set beside the plan · Charlie will say if the two disagree'] },
-    { chapter: 'Chapter 8 · Spending', page: 'p. 102', title: 'The first half of the year', kind: 'sheet', alt: 'The workbook · spending, January to June',
+    { chapter: 'Cash flow & spending', page: 'p. 102', title: 'The first half of the year', kind: 'sheet', story: 'Six months from the accounts, nothing typed. The boat’s line is over its plan by the survey and the new berth; Charlie said so on the plan page in March.', alt: 'The workbook · spending, January to June',
       rows: [
         { label: 'Spent', draft: 'about £240k so far', settled: '£248,550 · January to June', figure: true },
         { label: 'Against', draft: 'the plan, roughly', settled: 'The plan · £230,000 for the half', badge: true },
         { label: 'Over', fixed: 'The boat · £18,100 · the survey and the berth' },
         { label: 'Read by', draft: 'nobody yet', settled: 'Charlie · the plan and the spending disagree by 8%' } ],
       footer: ['', 'written by you', 'the workbook filled from the accounts · nothing typed twice', 'Charlie noticed the boat line and said so on the plan page'] },
-    { chapter: 'Chapter 4 · People', page: 'p. 52', title: 'Tom', kind: 'person', alt: 'Tom Alderton · born 2009',
+    { chapter: 'About us', page: 'p. 52', title: 'Tom', kind: 'person', story: 'Tom is seventeen and at Seaford College until 2027. His schooling is the book’s biggest line after the houses; the JISA his grandmother started is waiting for university.', alt: 'Tom Alderton · born 2009',
       rows: [
         { label: 'School', draft: 'Seaford, sixth form', settled: 'Seaford College · sixth form · leaves 2027', badge: true },
         { label: 'Fees', draft: 'about £14k a term', settled: '£14,250 a term · £42,750 this year', figure: true },
         { label: 'Paid from', fixed: 'The general account · standing order' },
         { label: 'Next', draft: 'University, probably', settled: 'University 2027 · £9,535 a year · a JISA of £38,000 waiting' } ],
       footer: ['', 'written by you', 'the fees read from the school\u2019s invoices in the vault', 'the JISA linked from Accounts · Charlie will say when it is short'] },
-    { chapter: 'Chapter 12 · Inheritance', page: 'p. 140', title: 'What the estate would owe', kind: 'ledger', alt: 'The sum, as the book keeps it',
+    { chapter: 'Inheritance', page: 'p. 140', title: 'What the estate would owe', kind: 'ledger', story: 'The sum as the book keeps it, every chapter added and the allowances taken off. The Trust’s share falls outside the estate in two years; the Chapel is already out.', alt: 'The sum, as the book keeps it',
       rows: [
         { label: 'Estate', draft: 'Everything, less the mortgage', settled: '£7,135,180 · every chapter summed', figure: true },
         { label: 'Allowances', draft: 'The usual two, I think', settled: 'Nil-rate £650,000 · residence £350,000', badge: true },
@@ -136,14 +135,27 @@
   var book = document.getElementById('book');
   var pages = [];
   var cover = document.createElement('div'); cover.className = 'page cover'; cover.setAttribute('data-density', 'hard');
-  cover.innerHTML = '<div class="cover-inner"><div class="kicker">A record of a whole financial life</div><div class="cover-name">The Alderton Family</div><div class="cover-rule"></div><div class="cover-kept">Kept since 2026 · 12 chapters</div></div>';
+  cover.innerHTML = '<div class="cover-inner"><div class="kicker">A record of a whole financial life</div><div class="cover-name">The Alderton Family</div><div class="cover-rule"></div><div class="cover-kept">Kept since 2026 · 9 chapters</div></div>';
   pages.push(cover);
+  // INSIDE THE COVER: the family's watercolour (its file to come) facing
+  // the contents, every chapter a link that turns the book to it.
+  var order = ['About us', 'Property', 'Chattels', 'Boats', 'Cash flow & spending', 'Pensions & investments', 'Structures', 'Diary', 'Inheritance'];
+  entries.sort(function (a, b) { return order.indexOf(a.chapter) - order.indexOf(b.chapter); });
+  var inside = document.createElement('div'); inside.className = 'page';
+  inside.innerHTML = '<div class="plate-page"><div class="plate picture family">Watercolour · the Aldertons at Harbour House</div><div class="caption">The family · summer 2026</div></div>';
+  var contents = document.createElement('div'); contents.className = 'page';
+  var chapters = []; entries.forEach(function (e, i) { if (!chapters.some(function (c) { return c.name === e.chapter; })) chapters.push({ name: e.chapter, entry: i, page: e.page }); });
+  contents.innerHTML = '<div class="contents-page"><div class="kicker">The Alderton Family</div><div class="contents-title">Contents</div><ul class="contents-list">' +
+    chapters.map(function (c) { return '<li><a href="#" data-entry="' + c.entry + '">' + c.name + '</a><span class="folio">' + c.page + '</span></li>'; }).join('') +
+    '</ul><div class="contents-foot">Press a chapter, or just keep turning.</div></div>';
+  pages.push(inside, contents);
   entries.forEach(function (e, i) {
     var left = document.createElement('div'); left.className = 'page';
     var plate = e.kind === 'chart' ? '<div class="plate chart">' + growthSvg() + '</div>' : e.kind === 'ledger' ? '<div class="plate ledger">' + ledgerHtml() + '</div>' : e.kind === 'diary' ? '<div class="plate diary">' + diaryHtml() + '</div>' : e.kind === 'sheet' ? '<div class="plate sheet">' + sheetHtml() + '</div>' : e.kind === 'person' ? '<div class="plate person">' + personHtml() + '</div>' : e.image ? '<div class="plate picture"><img src="' + e.image + '" alt="' + e.alt + '"></div>' : '<div class="plate picture"><div class="plate-empty">' + e.alt + '</div></div>';
-    left.innerHTML = '<div class="plate-page">' + plate + '<div class="caption">' + e.alt + '</div></div>';
+    var factsHtml = e.facts ? '<dl class="left-facts">' + e.facts.map(function (f) { return '<dt>' + f[0] + '</dt><dd>' + f[1] + '</dd>'; }).join('') + '</dl>' : '';
+    left.innerHTML = '<div class="plate-page">' + plate + '<div class="caption">' + e.alt + '</div>' + factsHtml + '</div>';
     var right = document.createElement('div'); right.className = 'page';
-    right.innerHTML = '<div class="words-page"><div class="folio-line kicker"><span class="chapter">' + e.chapter + '</span><span class="folio">' + e.page + '</span></div><div class="entry-title"><span class="words">' + e.title + '</span><span class="caret" hidden></span></div><div class="rows"></div><div class="entry-foot"></div></div>';
+    right.innerHTML = '<div class="words-page"><div class="folio-line kicker"><span class="chapter">' + e.chapter + '</span><span class="folio">' + e.page + '</span></div><div class="entry-title"><span class="words">' + e.title + '</span><span class="caret" hidden></span></div><div class="rows"></div>' + (e.story ? '<p class="story">' + e.story + '</p>' : '') + '<div class="entry-foot"></div></div>';
     right.setAttribute('data-entry', String(i));
     pages.push(left, right);
     paintRows(right, e, 3);
@@ -172,15 +184,39 @@
 
   // The engine: a soft turn, corner under the pointer, the cover alone.
   var flip = new St.PageFlip(book, {
-    width: 460, height: 640, size: 'stretch', minWidth: 300, maxWidth: 520, minHeight: 420, maxHeight: 720,
+    width: 590, height: 720, size: 'stretch', minWidth: 300, maxWidth: 590, minHeight: 366, maxHeight: 720,
     showCover: true, drawShadow: true, maxShadowOpacity: 0.28, flippingTime: 1100, usePortrait: true, mobileScrollSupport: false, startPage: 0
   });
   flip.loadFromHTML(pages);
+  // A chapter pressed on the contents turns the book to its first spread
+  // (the cover is page 0, the inside cover 1, the contents 2; entry i's
+  // pages are 3 + 2i and 4 + 2i).
+  contents.querySelectorAll('a[data-entry]').forEach(function (a) {
+    a.addEventListener('click', function (e) { e.preventDefault(); stop(); flip.flip(3 + 2 * Number(a.getAttribute('data-entry')), 'top'); });
+  });
+  // THE CLOSED BOOK opens the shelf: the cover in the hero is put away,
+  // the book appears across the page on its first spread, and the page
+  // scrolls to it. Close the book and the cover comes back.
+  var closed = document.getElementById('closed');
+  function openBook() {
+    document.body.classList.add('opened');
+    flip.update();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(function () { if (flip.getCurrentPageIndex() === 0) flip.flipNext('top'); }, 500);
+  }
+  closed.addEventListener('click', openBook);
+  closed.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openBook(); } });
+  document.querySelector('.close-book').addEventListener('click', function () {
+    stop(); document.body.classList.remove('opened');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  document.querySelector('a[href="#the-book"]').addEventListener('click', function (e) { if (!document.body.classList.contains('opened')) { e.preventDefault(); openBook(); } });
   var where = document.querySelector('.turns .where');
   function say() {
     var p = flip.getCurrentPageIndex();
     if (p === 0) where.textContent = 'cover';
-    else { var e = entries[Math.floor((p - 1) / 2)]; where.textContent = e ? e.page : 'the end'; }
+    else if (p < 3) where.textContent = 'contents';
+    else { var e = entries[Math.floor((p - 3) / 2)]; where.textContent = e ? e.page : 'the end'; }
   }
   flip.on('flip', function () { say(); });
   say();
@@ -201,7 +237,7 @@
   var delays = [2200, 3800, 4800, 5600], timer = null, playing = false, frame = 3;
   function currentRight() {
     var p = flip.getCurrentPageIndex();
-    var idx = p === 0 ? -1 : Math.floor((p - 1) / 2);
+    var idx = p < 3 ? -1 : Math.floor((p - 3) / 2);
     return idx >= 0 && idx < entries.length ? { el: book.querySelectorAll('.page[data-entry]')[idx], e: entries[idx] } : null;
   }
   function showPlay(on) { playing = on; playBox.classList.toggle('on', on); ico.setAttribute('d', on ? 'M2.5 2.5h5v5h-5z' : 'M2.5 1.5v7l6-3.5z'); }
@@ -219,7 +255,7 @@
   function play() {
     if (playing) { stop(); return; }
     showPlay(true);
-    if (flip.getCurrentPageIndex() === 0) { flip.flipNext('top'); frame = 0; timer = setTimeout(function () { var n = currentRight(); if (n) paintRows(n.el, n.e, 0); timer = setTimeout(tick, delays[0]); }, 1200); return; }
+    if (flip.getCurrentPageIndex() < 3) { flip.flip(3, 'top'); frame = 0; timer = setTimeout(function () { var n = currentRight(); if (n) paintRows(n.el, n.e, 0); timer = setTimeout(tick, delays[0]); }, 1200); return; }
     var r = currentRight(); if (!r) { stop(); return; }
     frame = 0; paintRows(r.el, r.e, 0); timer = setTimeout(tick, delays[0]);
   }
