@@ -508,3 +508,14 @@ body.opened .hero { display: none; }
 .part-foot p { margin: 0; }
 .part-foot .acronym { margin: 0; }
 @media (max-width: 900px) { .part-grid { grid-template-columns: 1fr; gap: 8px; } .part-points { padding-top: 0; } }
+
+/* NICER FONTS IN THE BOOK (Ian, 12 Sep 2026): the pages' reading text in
+   Newsreader, the face the design was first drawn in; Cormorant keeps
+   the titles and the figures, Instrument Sans the small capitals. */
+.words-page .rows, .words-page .row-value, .left-facts, .contents-list a, .cover-kept, .plate-page .caption, .ledger-row, .sheet td, .person-sub { font-family: 'Newsreader', var(--font-display), Georgia, serif; }
+.words-page .rows { font-size: 17.5px; }
+.left-facts { font-size: 15.5px; }
+.left-facts dt, .row-label { font-family: var(--font-text); font-size: 13.5px; }
+.contents-list a { font-size: 18px; }
+.story { font-family: 'Newsreader', var(--font-display), Georgia, serif; font-size: 17.5px; }
+.entry-foot { font-family: var(--font-text); }

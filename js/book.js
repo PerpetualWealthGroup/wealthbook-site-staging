@@ -9,13 +9,13 @@
 (function () {
   var entries = [
     { chapter: 'Property', page: 'p. 41', title: 'Harbour House, Dartmouth', image: 'images/harbour-house.webp', alt: 'Watercolour · Harbour House from the water',
-      facts: [['Address', 'Harbour House, Newcomen Road, Dartmouth TQ6 9AF'], ['What kind of place', 'Detached · four bedrooms · the slipway'], ['Tenure', 'Freehold · DN482119'], ['How it is used', 'Second home'], ['Ownership', 'The Alderton Family Trust'], ['Tax position', 'Not the main home · CGT on a sale']],
+      facts: [['Address', 'Harbour House, Newcomen Road, Dartmouth TQ6 9AF'], ['What kind of place', 'Detached · eight bedrooms · the slipway'], ['Tenure', 'Freehold · DN482119'], ['How it is used', 'Second home'], ['Ownership', 'The Alderton Family Trust'], ['Tax position', 'Not the main home · CGT on a sale']],
       rows: [
-        { label: 'Worth', draft: '£1,400,000', settled: '£1,485,000', figure: true },
+        { label: 'Worth', draft: '£5,400,000', settled: '£5,650,000', figure: true },
         { label: 'Source', draft: 'Your estimate, 9 Mar', settled: 'HM Land Registry · DN482119', badge: true },
-        { label: 'What you paid', fixed: '£1,150,000 · March 2011' },
-        { label: 'Improvements', draft: 'the kitchen, roughly £180k', settled: '£212,400 · the kitchen and the terrace', figure: true },
-        { label: 'Held for', fixed: '15 years · the gain £122,600 after improvements' } ],
+        { label: 'What you paid', fixed: '£4,000,000 · March 2011' },
+        { label: 'Improvements', draft: 'the kitchen, roughly £600k', settled: '£640,000 · the kitchen and the terrace', figure: true },
+        { label: 'Held for', fixed: '15 years · the gain £1,010,000 after improvements' } ],
       story: 'Bought from the Pellows in 2011, the year the slipway last saw a boat. The kitchen was the old net loft; the terrace was Clare’s idea and the best thing about the house.',
       footer: ['', 'written by you', 'settled by Land Registry · your estimate kept underneath · improvements read from the invoices in the vault', 'the gain worked from what you paid and what you spent · Charlie will say what a sale would cost'] },
     { chapter: 'Boats', page: 'p. 67', title: 'Lady Anne · Botnia Targa 46', facts: [['Boat', 'Botnia Targa 46 · 2019'], ['Length', '14.6 m · twin diesels'], ['Berth', 'Ocean Village Marina, Southampton · C14'], ['Held by', 'The family']], story: 'Named for a grandmother who never went near the water. She lives at Ocean Village and goes to the Solent most weekends the forecast allows.', image: 'images/lady-anne.webp', alt: 'Watercolour · Lady Anne at Ocean Village',
