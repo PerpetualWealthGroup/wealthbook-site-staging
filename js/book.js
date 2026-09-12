@@ -31,7 +31,7 @@
         { label: 'Worth', draft: '£2,100,000', settled: '£2,240,000', figure: true },
         { label: 'Source', draft: 'Your estimate', settled: 'Savills appraisal · Feb', badge: true },
         { label: 'What you paid', fixed: '£1,420,000 · September 2004' },
-        { label: 'Listing', draft: 'Grade II, I think', settled: 'Grade II · Historic England 1108422', badge: true },
+        { label: 'Listing', draft: 'Grade II, I think', settled: 'Grade II · Historic England 1108422' },
         { label: 'Held for', fixed: '22 years · the roof in 2019, £64,000' } ],
       story: 'The family home. Jonathan’s office is the old study; the piano lives in the drawing room; the roof was done in 2019 and the bill is in the vault.',
       footer: ['', 'written by you', 'appraisal filed', 'listing confirmed against the National Heritage List · consent notes attached'] },
@@ -55,13 +55,13 @@
     { chapter: 'Structures', page: 'p. 12', title: 'The Alderton Family Trust', facts: [['Settled', '14 May 1998 · discretionary'], ['Trustees', 'Jonathan Alderton · Ruth Ellery'], ['Holds', 'March House · The Chapel · two accounts'], ['Beneficiaries', 'Tom · Isla · their issue']], story: 'Set up by Jonathan’s father the year before he died. Ruth has been a trustee since 2015 and has the deed; the Trust’s own chapter carries the accounts.', alt: 'Ink sketch · the family tree',
       rows: [
         { label: 'Settled', fixed: '1998 · discretionary' },
-        { label: 'Trustees', draft: 'Jonathan, and Ruth', settled: 'Jonathan Alderton · Ruth Ellery', badge: true },
+        { label: 'Trustees', draft: 'Jonathan, and Ruth', settled: 'Jonathan Alderton · Ruth Ellery' },
         { label: 'Holds', draft: 'March House, the Chapel…', settled: 'March House · The Chapel · 2 accounts' },
         { label: 'Beneficiaries', fixed: 'Tom · Isla · issue' } ],
       footer: ['', 'written by you', 'trustees confirmed from the deed · Ruth invited to this chapter', 'holdings linked from Property and Accounts · nothing typed twice'] },
     { chapter: 'Diary', page: 'p. 131', title: 'Thursday · met the surveyor', kind: 'diary', story: 'Filed the same evening from the note above. Charlie found Marcus in the contacts, hung the line on Lady Anne and on March House, and matched the invoice when it came.', alt: 'Your diary · Thursday 14 May',
       rows: [
-        { label: 'With', draft: 'Marcus', settled: 'Marcus Reid · surveyor', badge: true },
+        { label: 'With', draft: 'Marcus', settled: 'Marcus Reid · surveyor' },
         { label: 'About', draft: 'Lady Anne, the coach house', settled: 'Lady Anne’s survey · the coach house roof at March House' },
         { label: 'Outcome', draft: 'Report in a fortnight', settled: 'Report due 28 May · filed under Lady Anne' },
         { label: 'Cost', draft: '£900 ish', settled: '£950 · Berthon invoice', figure: true } ],
@@ -78,13 +78,13 @@
     { chapter: 'Cash flow & spending', page: 'p. 102', title: 'The first half of the year', kind: 'sheet', story: 'Six months from the accounts, nothing typed. The boat’s line is over its plan by the survey and the new berth; Charlie said so on the plan page in March.', alt: 'The workbook · spending, January to June',
       rows: [
         { label: 'Spent', draft: 'about £240k so far', settled: '£248,550 · January to June', figure: true },
-        { label: 'Against', draft: 'the plan, roughly', settled: 'The plan · £230,000 for the half', badge: true },
+        { label: 'Against', draft: 'the plan, roughly', settled: 'The plan · £230,000 for the half' },
         { label: 'Over', fixed: 'The boat · £18,100 · the survey and the berth' },
         { label: 'Read by', draft: 'nobody yet', settled: 'Charlie · the plan and the spending disagree by 8%' } ],
       footer: ['', 'written by you', 'the workbook filled from the accounts · nothing typed twice', 'Charlie noticed the boat line and said so on the plan page'] },
     { chapter: 'About us', page: 'p. 52', title: 'Tom', kind: 'person', story: 'Tom is seventeen and at Seaford College until 2027. His schooling is the book’s biggest line after the houses; the JISA his grandmother started is waiting for university.', alt: 'Tom Alderton · born 2009',
       rows: [
-        { label: 'School', draft: 'Seaford, sixth form', settled: 'Seaford College · sixth form · leaves 2027', badge: true },
+        { label: 'School', draft: 'Seaford, sixth form', settled: 'Seaford College · sixth form · leaves 2027' },
         { label: 'Fees', draft: 'about £14k a term', settled: '£14,250 a term · £42,750 this year', figure: true },
         { label: 'Paid from', fixed: 'The general account · standing order' },
         { label: 'Next', draft: 'University, probably', settled: 'University 2027 · £9,535 a year · a JISA of £38,000 waiting' } ],
@@ -92,7 +92,7 @@
     { chapter: 'Inheritance', page: 'p. 140', title: 'What the estate would owe', kind: 'ledger', story: 'The sum as the book keeps it, every chapter added and the allowances taken off. The Trust’s share falls outside the estate in two years; the Chapel is already out.', alt: 'The sum, as the book keeps it',
       rows: [
         { label: 'Estate', draft: 'Everything, less the mortgage', settled: '£7,135,180 · every chapter summed', figure: true },
-        { label: 'Allowances', draft: 'The usual two, I think', settled: 'Nil-rate £650,000 · residence £350,000', badge: true },
+        { label: 'Allowances', draft: 'The usual two, I think', settled: 'Nil-rate £650,000 · residence £350,000' },
         { label: 'Exposure', draft: 'A lot', settled: '£2,085,600 at 40%', figure: true },
         { label: 'Held by', fixed: 'Jonathan & Clare, jointly' } ],
       footer: ['', 'written by you', 'the sums as the book keeps them · both allowances doubled between spouses', 'the Trust’s share sits outside the estate after seven years · 2 years to go'] }
@@ -181,7 +181,16 @@
       var isDraft = r.fixed === undefined && frame === 1;
       var label = document.createElement('div'); label.className = 'row-label'; label.textContent = r.label;
       var cell = document.createElement('div'); cell.className = 'row-value' + (isDraft ? ' draft' : '') + (r.figure && !isDraft ? ' figure' : '');
-      var span = document.createElement('span'); span.textContent = value; cell.appendChild(span);
+      // The figure face is for the money alone (Ian, 12 Sep 2026: "big text
+      // spilling out everywhere"): "£640,000 · the kitchen and the terrace"
+      // sets the sum in the display face and the words after it in the
+      // page's own text.
+      if (r.figure && !isDraft && value.indexOf(' \u00b7 ') > 0) {
+        var cut = value.indexOf(' \u00b7 ');
+        var fig = document.createElement('span'); fig.className = 'fig'; fig.textContent = value.slice(0, cut);
+        var rest = document.createElement('span'); rest.className = 'fig-rest'; rest.textContent = value.slice(cut);
+        cell.appendChild(fig); cell.appendChild(rest);
+      } else { var span = document.createElement('span'); span.textContent = value; cell.appendChild(span); }
       if (done && r.badge) { var b = document.createElement('span'); b.className = 'badge'; b.textContent = 'on the record'; cell.appendChild(b); }
       rows.appendChild(label); rows.appendChild(cell);
     });
